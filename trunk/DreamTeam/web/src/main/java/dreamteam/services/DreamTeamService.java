@@ -56,6 +56,7 @@ public class DreamTeamService {
 			
 	}
 	
+	// TODO: Refactor - SRP violation
 	private void generatePlayers(){
 		players = new ArrayList<Player>();
 
