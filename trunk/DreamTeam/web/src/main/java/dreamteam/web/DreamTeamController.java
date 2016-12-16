@@ -2,12 +2,10 @@ package dreamteam.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +25,7 @@ public class DreamTeamController {
 	private final static String HOME_VIEW = "home";
 	
 	@Autowired
+	@Qualifier("dreamTeamServiceImpl")
 	private DreamTeamService dreamTeamService;
 	
 	@RequestMapping("/home")

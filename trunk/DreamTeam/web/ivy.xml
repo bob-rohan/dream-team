@@ -1,14 +1,10 @@
 <ivy-module version="2.0">
     <info organisation="dreamteam.web" module="web"/>
     <dependencies>
-		<!-- <dependency org="org.springframework.boot" name="spring-boot-starter-thymeleaf" rev="1.4.1.RELEASE"/>  -->
+		<dependency org="org.springframework.boot" name="spring-boot-starter-web" rev="1.4.1.RELEASE"/>
+		<dependency org="org.springframework.boot" name="spring-boot-starter-tomcat" rev="1.4.1.RELEASE"/>
 		
-		<dependency org="org.springframework" name="spring-webmvc" rev="3.1.1.RELEASE">
-			<exclude org="com.sun.jdmk" module="jmxtools" />
-			<exclude org="javax.jms" module="jms" />
-			<exclude org="com.sun.jmx" module="jmxri" />
-			<exclude org="net.sourceforge.jexcelapi" module="jxl" />
-		</dependency>
+		<!-- TODO Are all these dependencies still needed -->
 		<dependency org="log4j" name="log4j" rev="1.2.15">
 			<exclude org="com.sun.jdmk" module="jmxtools" />
 			<exclude org="javax.jms" module="jms" />
