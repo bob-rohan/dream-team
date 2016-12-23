@@ -1,33 +1,32 @@
-package dreamteam.domain;
+package rohan.dreamteam.domain;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public class Player {
 
 	private int id;
-	
+
 	private String name;
-	
+
 	private int totalPoints;
-	
+
 	private String team;
-	
+
 	private String position;
-	
+
 	private BigDecimal nowCost;
-	
+
 	private int gamesPlayed;
-	
+
 	private BigDecimal standardDeviation;
-	
+
 	// invariant of totalPoints / gamesPlayed - no setter required.
 	private BigDecimal pointsPerGame;
-	
+
 	// invariant of pointsPerGame / nowCost - no setter required.
 	private BigDecimal pointsPerGamePerMillion;
-	
+
 	private boolean visibility;
 
 	public int getId() {
@@ -91,16 +90,17 @@ public class Player {
 		int gamesPlayed = getGamesPlayed();
 		BigDecimal response = new BigDecimal(0);
 		response.setScale(2);
-		if (totalPoints > 0){
-			try{
+		if (totalPoints > 0) {
+			try {
 				response = new BigDecimal(totalPoints);
 				response = response.divide(new BigDecimal(gamesPlayed), 2, RoundingMode.HALF_UP);
-			} catch (Exception e){
+			} catch (Exception e) {
 				// e.printStackTrace();
 			}
 		}
 		return response;
-		//return getTotalPoints() > 0 ? getTotalPoints() / getGamesPlayed() : 0;
+		// return getTotalPoints() > 0 ? getTotalPoints() / getGamesPlayed() :
+		// 0;
 	}
 
 	public boolean isVisibility() {
@@ -110,22 +110,23 @@ public class Player {
 	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
 	}
-	
+
 	public BigDecimal getPointsPerGamePerMillion() {
 		BigDecimal pointsPerGame = getPointsPerGame();
 		BigDecimal nowCost = getNowCost();
 		BigDecimal response = new BigDecimal(0);
 		response.setScale(2);
-		if (pointsPerGame.compareTo(response) == 1){
-			try{
+		if (pointsPerGame.compareTo(response) == 1) {
+			try {
 				response = pointsPerGame;
 				response = response.divide(nowCost, 2, RoundingMode.HALF_UP);
-			} catch (Exception e){
+			} catch (Exception e) {
 				// e.printStackTrace();
 			}
 		}
 		return response;
-		//return getTotalPoints() > 0 ? getTotalPoints() / getGamesPlayed() : 0;
+		// return getTotalPoints() > 0 ? getTotalPoints() / getGamesPlayed() :
+		// 0;
 	}
 
 	public BigDecimal getStandardDeviation() {

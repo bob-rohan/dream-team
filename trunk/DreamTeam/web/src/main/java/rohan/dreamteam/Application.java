@@ -1,4 +1,4 @@
-package dreamteam;
+package rohan.dreamteam;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

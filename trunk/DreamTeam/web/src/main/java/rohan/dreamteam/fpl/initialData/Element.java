@@ -1,19 +1,17 @@
-package dreamteam.fpl.initialData;
-
-import java.math.BigDecimal;
+package rohan.dreamteam.fpl.initialData;
 
 public class Element {
 
 	private int id;
-	
+
 	private String web_name;
-	
+
 	private int total_points;
-	
+
 	private int team_code;
-	
+
 	private int element_type;
-	
+
 	private int now_cost;
 
 	public int getId() {
@@ -63,5 +61,5 @@ public class Element {
 	public void setElement_type(int element_type) {
 		this.element_type = element_type;
 	}
-	
+
 }

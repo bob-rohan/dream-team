@@ -1,4 +1,4 @@
-package dreamteam.services;
+package rohan.dreamteam.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import dreamteam.domain.Goalkeeper;
-import dreamteam.domain.Player;
-import dreamteam.web.DreamTeamController;
+import rohan.dreamteam.domain.Goalkeeper;
+import rohan.dreamteam.domain.Player;
+import rohan.dreamteam.web.DreamTeamController;
 
 @Service
 public class DreamTeamServiceMock implements DreamTeamService{
