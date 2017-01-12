@@ -1,0 +1,18 @@
+<Configuration>
+ 
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n%ex{none}"/>
+        </Console>
+    </Appenders>
+ 
+    <Loggers>
+        <Logger name="rohan.dreamteam" level="DEBUG" additivity="false">
+        	<AppenderRef ref="console"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+ 
+</Configuration>
