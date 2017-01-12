@@ -108,9 +108,11 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 				PlayerDataRoot playerDataRoot = mapper.readValue(playerData, PlayerDataRoot.class);
 
-				player.setStandardDeviation(getStandardDeviation(playerDataRoot.getHistory()));
-				player.setGamesPlayed(getGamesPlayed(playerDataRoot.getHistory()));
-				player.setVisibility(getPlayerVisibility(playerDataRoot.getHistory()));
+				if (!playerDataRoot.getHistory().isEmpty()) {
+					player.setStandardDeviation(getStandardDeviation(playerDataRoot.getHistory()));
+					player.setGamesPlayed(getGamesPlayed(playerDataRoot.getHistory()));
+					player.setVisibility(getPlayerVisibility(playerDataRoot.getHistory()));
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
