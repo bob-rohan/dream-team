@@ -103,6 +103,7 @@ html, body, input, select, textarea {
 							<th class="col-md-1">PPG</th>
 							<th class="col-md-1">PPMPG</th>
 							<th class="col-md-2">Std. Dev.</th>
+							<th class="col-md-2">Brink of Suspension</th>
 							<th class="col-md-3">Team Name</th>
 
 						</tr>
@@ -115,6 +116,7 @@ html, body, input, select, textarea {
 								<td class="col-md-1">${player.pointsPerGame}</td>
 								<td class="col-md-1">${player.pointsPerGamePerMillion}</td>
 								<td class="col-md-2">${player.standardDeviation}</td>
+								<td class="col-md-2">${player.yellowCardBanAlert}</td>
 								<td class="col-md-3">${player.team}</td>
 							</tr>
 						</c:forEach>
@@ -133,7 +135,7 @@ html, body, input, select, textarea {
 							<th class="col-md-1">PPG</th>
 							<th class="col-md-1">PPMPG</th>
 							<th class="col-md-2">Std. Dev.</th>
-							
+							<th class="col-md-2">Brink of Suspension</th>
 							<th class="col-md-3">Team Name</th>
 						</tr>
 					<thead>
@@ -145,6 +147,7 @@ html, body, input, select, textarea {
 								<td class="col-md-1">${player.pointsPerGame}</td>
 								<td class="col-md-1">${player.pointsPerGamePerMillion}</td>
 								<td class="col-md-2">${player.standardDeviation}</td>
+								<td class="col-md-2">${player.yellowCardBanAlert}</td>
 								<td class="col-md-3">${player.team}</td>
 							</tr>
 						</c:forEach>
@@ -162,6 +165,7 @@ html, body, input, select, textarea {
 							<th class="col-md-1">PPG</th>
 							<th class="col-md-1">PPMPG</th>
 							<th class="col-md-2">Std. Dev.</th>
+							<th class="col-md-2">Brink of Suspension</th>
 							<th class="col-md-3">Team Name</th>
 						</tr>
 					<thead>
@@ -173,6 +177,7 @@ html, body, input, select, textarea {
 								<td class="col-md-1">${player.pointsPerGame}</td>
 								<td class="col-md-1">${player.pointsPerGamePerMillion}</td>
 								<td class="col-md-2">${player.standardDeviation}</td>
+								<td class="col-md-2">${player.yellowCardBanAlert}</td>
 								<td class="col-md-3">${player.team}</td>
 							</tr>
 						</c:forEach>
@@ -190,6 +195,7 @@ html, body, input, select, textarea {
 							<th class="col-md-1">PPG</th>
 							<th class="col-md-1">PPMPG</th>
 							<th class="col-md-2">Std. Dev.</th>
+							<th class="col-md-2">Brink of Suspension</th>
 							<th class="col-md-3">Team Name</th>
 						</tr>
 					<thead>
@@ -201,34 +207,7 @@ html, body, input, select, textarea {
 								<td class="col-md-1">${player.pointsPerGame}</td>
 								<td class="col-md-1">${player.pointsPerGamePerMillion}</td>
 								<td class="col-md-2">${player.standardDeviation}</td>
-								<td class="col-md-3">${player.team}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-
-			<div id="dreamteam" class="tab-pane">
-				<table id="dreamTeamTable" class="table table-striped">
-
-					<thead>
-						<tr class="row">
-							<th class="col-md-3">Player Name</th>
-							<th class="col-md-2">Cost (M)</th>
-							<th class="col-md-1">PPG</th>
-							<th class="col-md-1">PPMPG</th>
-							<th class="col-md-2">Std. Dev.</th>
-							<th class="col-md-3">Team Name</th>
-						</tr>
-					<thead>
-					<tbody>
-						<c:forEach var="player" items="${dreamTeamCommand.dreamTeam}">
-							<tr class="row">
-								<td class="col-md-3">${player.name}</td>
-								<td class="col-md-2">${player.nowCost}</td>
-								<td class="col-md-1">${player.pointsPerGame}</td>
-								<td class="col-md-1">${player.pointsPerGamePerMillion}</td>
-								<td class="col-md-2">${player.standardDeviation}</td>
+								<td class="col-md-2">${player.yellowCardBanAlert}</td>
 								<td class="col-md-3">${player.team}</td>
 							</tr>
 						</c:forEach>

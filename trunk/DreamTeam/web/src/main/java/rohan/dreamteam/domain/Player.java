@@ -11,6 +11,8 @@ public class Player {
 
 	private int totalPoints;
 
+	private int totalYellowCards;
+
 	private String team;
 
 	private String position;
@@ -28,6 +30,8 @@ public class Player {
 	private BigDecimal pointsPerGamePerMillion;
 
 	private boolean visibility;
+
+	private boolean yellowCardBanAlert;
 
 	public int getId() {
 		return id;
@@ -135,6 +139,22 @@ public class Player {
 
 	public void setStandardDeviation(BigDecimal standardDeviation) {
 		this.standardDeviation = standardDeviation;
+	}
+
+	public int getTotalYellowCards() {
+		return totalYellowCards;
+	}
+
+	public void setTotalYellowCards(int totalYellowCards) {
+		this.totalYellowCards = totalYellowCards;
+	}
+
+	public boolean isYellowCardBanAlert() {
+		return yellowCardBanAlert;
+	}
+
+	public void setYellowCardBanAlert(boolean yellowCardBanAlert) {
+		this.yellowCardBanAlert = yellowCardBanAlert;
 	}
 
 }

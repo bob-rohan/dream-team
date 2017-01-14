@@ -6,6 +6,8 @@ public class Element {
 
 	private String web_name;
 
+	private int yellow_cards;
+
 	private int total_points;
 
 	private int team_code;
@@ -60,6 +62,14 @@ public class Element {
 
 	public void setElement_type(int element_type) {
 		this.element_type = element_type;
+	}
+
+	public int getYellow_cards() {
+		return yellow_cards;
+	}
+
+	public void setYellow_cards(int yellow_cards) {
+		this.yellow_cards = yellow_cards;
 	}
 
 }

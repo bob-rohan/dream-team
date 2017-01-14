@@ -1,6 +1,7 @@
 package rohan.dreamteam.services;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -43,8 +44,9 @@ public class DreamTeamServiceMock implements DreamTeamService {
 		goalkeeper.setVisibility(true);
 		goalkeeper.setId(0);
 		goalkeeper.setName("One");
-		goalkeeper.setNowCost(new BigDecimal(1.7f));
+		goalkeeper.setNowCost(new BigDecimal(1.7f).setScale(1, RoundingMode.HALF_UP));
 		goalkeeper.setTotalPoints(38);
+		goalkeeper.setYellowCardBanAlert(true);
 		return goalkeeper;
 	}
 

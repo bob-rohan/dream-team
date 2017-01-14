@@ -6,9 +6,12 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -87,6 +90,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 				player.setId(element.getId());
 				player.setName(element.getWeb_name());
+				player.setTotalYellowCards(element.getYellow_cards());
 
 				int intNowCost = element.getNow_cost();
 				BigDecimal nowCost = new BigDecimal(intNowCost);
@@ -112,11 +116,67 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 					player.setStandardDeviation(getStandardDeviation(playerDataRoot.getHistory()));
 					player.setGamesPlayed(getGamesPlayed(playerDataRoot.getHistory()));
 					player.setVisibility(getPlayerVisibility(playerDataRoot.getHistory()));
+					player.setYellowCardBanAlert(getYellowCardBanAlert(player, playerDataRoot.getHistory()));
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean getYellowCardBanAlert(Player player, Collection<History> histories) {
+
+		boolean isYellowCardsForSeasonThresholdReached = isYellowCardsForSeasonThresholdReached(player);
+
+		boolean isYellowCardsForHalfYearThresholdReached = isYellowCardsForHalfYearThresholdReached(histories);
+
+		boolean isYellowCardBanAlert = isYellowCardsForSeasonThresholdReached
+				|| isYellowCardsForHalfYearThresholdReached;
+
+		return isYellowCardBanAlert;
+	}
+
+	/**
+	 * Refactor threshold.
+	 * 
+	 * @param histories
+	 * @return
+	 */
+	private boolean isYellowCardsForHalfYearThresholdReached(Collection<History> histories) {
+		NavigableMap<Date, Integer> sortedHistories = new TreeMap<>();
+
+		for (History history : histories) {
+			if (history.getYellow_cards() != 0) {
+				sortedHistories.put(history.getKickoff_time(), history.getYellow_cards());
+			}
+		}
+
+		final Date threshold = new Date("12/31/2016");
+
+		final Date now = new Date();
+
+		boolean isYellowCardsForHalfYearThresholdReached = false;
+
+		Map<Date, Integer> halfYearYellowCardHistory = null;
+		if (now.before(threshold)) {
+			halfYearYellowCardHistory = sortedHistories.headMap(threshold, true);
+		} else {
+			halfYearYellowCardHistory = sortedHistories.tailMap(threshold, false);
+		}
+
+		isYellowCardsForHalfYearThresholdReached = (halfYearYellowCardHistory.size() == 4);
+
+		return isYellowCardsForHalfYearThresholdReached;
+	}
+
+	/**
+	 * Refactor magic numbers;
+	 * 
+	 * @param player
+	 * @return
+	 */
+	private boolean isYellowCardsForSeasonThresholdReached(Player player) {
+		return player.getTotalYellowCards() == 9 || player.getTotalYellowCards() == 14;
 	}
 
 	private BigDecimal getStandardDeviation(Collection<History> histories) {
