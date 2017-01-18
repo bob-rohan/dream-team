@@ -68,6 +68,17 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 		</dependency>
+		<!-- Internal Artifacts -->
+		<dependency>
+			<groupId>rohan.dreamteam</groupId>
+			<artifactId>services</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>rohan.dreamteam</groupId>
+			<artifactId>domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
