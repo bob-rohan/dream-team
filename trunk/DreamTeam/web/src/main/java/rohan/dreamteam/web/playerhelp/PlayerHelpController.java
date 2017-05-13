@@ -17,7 +17,7 @@ import rohan.dreamteam.services.DreamTeamService;
 @RestController
 public class PlayerHelpController {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(PlayerHelpController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerHelpController.class);
 
 	@Autowired
 	@Qualifier("dreamTeamServiceImpl")
@@ -26,9 +26,10 @@ public class PlayerHelpController {
 	@RequestMapping(path = "getPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Player> getPlayers() {
 
-		Collection<Player> players = dreamTeamService.getPlayers();
+		// TODO: Insert method name programmatically.
+		LOGGER.info("Received getPlayers request");
 
-		return players;
+		return dreamTeamService.getPlayers();
 	}
 
 }

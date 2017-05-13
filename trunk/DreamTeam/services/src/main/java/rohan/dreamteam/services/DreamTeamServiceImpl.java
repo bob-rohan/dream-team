@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rohan.dreamteam.domain.Gameweek;
+import rohan.dreamteam.domain.GameweekStatistics;
 import rohan.dreamteam.domain.Player;
-import rohan.dreamteam.fpldomain.initialData.InitialDataRoot;
-import rohan.dreamteam.fpldomain.playerData.PlayerDataRoot;
+import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
+import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
 import rohan.dreamteam.transformers.DreamTeamTransformer;
 
 @Service
@@ -54,9 +54,9 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 			final PlayerDataRoot playerDataRoot = getPlayerData(player.getId());
 
-			Collection<Gameweek> gameweeks = dreamTeamTransformer.getGameweeks(playerDataRoot);
+			Collection<GameweekStatistics> gameweeksStatistics = dreamTeamTransformer.getGameweeks(playerDataRoot);
 
-			player.setGameweeks(gameweeks);
+			player.setGameweeksStatistics(gameweeksStatistics);
 		}
 	}
 

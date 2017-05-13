@@ -8,8 +8,11 @@ package rohan.dreamteam.domain;
  */
 public class PlayerFactory {
 
+	private PlayerFactory() {
+	}
+
 	public static Player getPlayer(String shortPosition) {
-		Player player = null;
+		Player player;
 		switch (shortPosition) {
 		case "GKP":
 			player = new Goalkeeper();
@@ -24,7 +27,7 @@ public class PlayerFactory {
 			player = new Forward();
 			break;
 		default:
-			throw new RuntimeException();
+			throw new IllegalPlayerException("Unable to get player for type:" + shortPosition);
 		}
 		return player;
 	}

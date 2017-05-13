@@ -1,7 +1,7 @@
 package rohan.dreamteam.services;
 
-import rohan.dreamteam.fpldomain.initialData.InitialDataRoot;
-import rohan.dreamteam.fpldomain.playerData.PlayerDataRoot;
+import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
+import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
 
 public interface DataConverter {
 

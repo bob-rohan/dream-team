@@ -1,4 +1,4 @@
-package rohan.dreamteam.fpldomain.playerData;
+package rohan.dreamteam.fpldomain.playerdata;
 
 import java.util.Collection;
 

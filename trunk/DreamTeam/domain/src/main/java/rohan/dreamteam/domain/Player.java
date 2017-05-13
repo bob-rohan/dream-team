@@ -23,7 +23,7 @@ public class Player {
 
 	private BigDecimal nowCost;
 
-	private Collection<Gameweek> gameweeks;
+	private Collection<GameweekStatistics> gameweeksStatistics;
 
 	public int getId() {
 		return id;
@@ -65,12 +65,12 @@ public class Player {
 		this.totalYellowCards = totalYellowCards;
 	}
 
-	public Collection<Gameweek> getGameweeks() {
-		return gameweeks;
+	public Collection<GameweekStatistics> getGameweeksStatistics() {
+		return gameweeksStatistics;
 	}
 
-	public void setGameweeks(Collection<Gameweek> gameweeks) {
-		this.gameweeks = gameweeks;
+	public void setGameweeksStatistics(Collection<GameweekStatistics> gameweeksStatistics) {
+		this.gameweeksStatistics = gameweeksStatistics;
 	}
 
 	public Team getTeam() {

@@ -11,15 +11,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import rohan.dreamteam.exceptions.DreamTeamException;
-import rohan.dreamteam.fpldomain.initialData.InitialDataRoot;
-import rohan.dreamteam.fpldomain.playerData.PlayerDataRoot;
+import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
+import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
 
 @Service
 public class DataConverterImpl implements DataConverter {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(DataConverterImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DataConverterImpl.class);
 
-	private final static ObjectMapper MAPPER = new ObjectMapper();
+	private static final ObjectMapper MAPPER = new ObjectMapper();
 
 	static {
 		MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
@@ -27,6 +27,7 @@ public class DataConverterImpl implements DataConverter {
 		MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
+	@Override
 	public InitialDataRoot convertJsonToInitialDataRoot(final String json) {
 
 		InitialDataRoot initialDataRoot = null;
@@ -43,6 +44,7 @@ public class DataConverterImpl implements DataConverter {
 		return initialDataRoot;
 	}
 
+	@Override
 	public PlayerDataRoot convertJsonToPlayerDataRoot(final String json) {
 
 		PlayerDataRoot playerDataRoot = null;

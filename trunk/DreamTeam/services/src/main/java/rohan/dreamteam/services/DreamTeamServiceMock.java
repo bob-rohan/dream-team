@@ -15,12 +15,14 @@ import rohan.dreamteam.domain.Player;
 @Service
 public class DreamTeamServiceMock implements DreamTeamService {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceMock.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceMock.class);
 
 	private Collection<Player> players;
 
+	@Override
 	public Collection<Player> getPlayers() {
 
+		LOGGER.info("Getting players...");
 		if (players == null) {
 			generatePlayers();
 		}
@@ -31,7 +33,7 @@ public class DreamTeamServiceMock implements DreamTeamService {
 
 	// TODO: Refactor - SRP violation
 	private void generatePlayers() {
-		players = new ArrayList<Player>();
+		players = new ArrayList<>();
 
 		players.add(getPlayer());
 		players.add(getPlayer());
@@ -42,7 +44,7 @@ public class DreamTeamServiceMock implements DreamTeamService {
 		Goalkeeper goalkeeper = new Goalkeeper();
 		goalkeeper.setId(0);
 		goalkeeper.setName("One");
-		goalkeeper.setNowCost(new BigDecimal(1.7f).setScale(1, RoundingMode.HALF_UP));
+		goalkeeper.setNowCost(BigDecimal.valueOf(1.7f).setScale(1, RoundingMode.HALF_UP));
 		goalkeeper.setTotalPoints(38);
 		// TODO: Set gameweeks
 		return goalkeeper;

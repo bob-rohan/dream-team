@@ -2,7 +2,7 @@ package rohan.dreamteam.domain;
 
 import java.util.Date;
 
-public class Gameweek {
+public class GameweekStatistics {
 
 	private Date kickoff;
 

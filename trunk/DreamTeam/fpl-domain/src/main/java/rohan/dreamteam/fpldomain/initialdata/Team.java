@@ -1,4 +1,4 @@
-package rohan.dreamteam.fpldomain.initialData;
+package rohan.dreamteam.fpldomain.initialdata;
 
 public class Team {
 

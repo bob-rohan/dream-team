@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>rohan.dreamteam</groupId>
   <artifactId>fpl-domain</artifactId>
-  <version>1.0.0-RELEASE</version>
+  <version>1.0.1-RELEASE</version>
   
   <build>
 		<plugins>
