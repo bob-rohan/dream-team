@@ -14,8 +14,9 @@ import rohan.dreamteam.exceptions.DreamTeamException;
 @Service
 public class HttpClientServiceImpl implements HttpClientService {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(HttpClientServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientServiceImpl.class);
 
+	@Override
 	public String getDataString(final String url) {
 		HttpClient client = new HttpClient();
 

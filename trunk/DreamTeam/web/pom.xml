@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>rohan.dreamteam</groupId>
 			<artifactId>services</artifactId>
-			<version>1.0.2-RELEASE</version>
+			<version>1.0.3-RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>rohan.dreamteam</groupId>

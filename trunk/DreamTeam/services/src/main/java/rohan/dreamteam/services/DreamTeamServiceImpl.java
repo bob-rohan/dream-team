@@ -16,11 +16,11 @@ import rohan.dreamteam.transformers.DreamTeamTransformer;
 @Service
 public class DreamTeamServiceImpl implements DreamTeamService {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceImpl.class);
 
-	private final static String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/drf/bootstrap-static";
+	private static final String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/drf/bootstrap-static";
 
-	private final static String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/drf/element-summary/";
+	private static final String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/drf/element-summary/";
 
 	@Autowired
 	private HttpClientService httpClientService;
@@ -33,6 +33,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	private Collection<Player> players;
 
+	@Override
 	public Collection<Player> getPlayers() {
 
 		if (players == null) {
@@ -63,16 +64,12 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	private InitialDataRoot getInitialData() {
 		final String responseBody = httpClientService.getDataString(DREAM_TEAM_URL_INITIAL_DATA);
 
-		final InitialDataRoot initialDataRoot = dataConverter.convertJsonToInitialDataRoot(responseBody);
-
-		return initialDataRoot;
+		return dataConverter.convertJsonToInitialDataRoot(responseBody);
 	}
 
 	private PlayerDataRoot getPlayerData(int playerId) {
 		final String responseBody = httpClientService.getDataString(DREAM_TEAM_URL_PLAYER_DATA + playerId);
 
-		final PlayerDataRoot playerDataRoot = dataConverter.convertJsonToPlayerDataRoot(responseBody);
-
-		return playerDataRoot;
+		return dataConverter.convertJsonToPlayerDataRoot(responseBody);
 	}
 }

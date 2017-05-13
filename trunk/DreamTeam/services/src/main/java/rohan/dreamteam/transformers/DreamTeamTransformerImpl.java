@@ -55,9 +55,10 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		return positions;
 	}
 
+	@Override
 	public Collection<Player> getPlayers(final InitialDataRoot initialDataRoot) {
 
-		final Collection<Player> players = new ArrayList<Player>();
+		final Collection<Player> players = new ArrayList<>();
 
 		final Map<Integer, rohan.dreamteam.domain.Team> teams = getTeams(initialDataRoot);
 
