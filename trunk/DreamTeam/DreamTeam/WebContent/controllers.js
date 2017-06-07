@@ -64,7 +64,7 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 		}
 		
 		this.getPointsPerGame = function(){
-			var gameweeks = this.getGameweeks();
+			var gameweeks = this.getGameweeksStatistics();
 			
 			var totalPoints = 0;
 			var totalGames = 0;
@@ -89,8 +89,8 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			return (pointsPerGame / this.getNowCost()).toFixed(2);
 		}
 		
-		this.getGameweeks = function(){
-			var gameweeks = data.gameweeks;
+		this.getGameweeksStatistics = function(){
+			var gameweeks = data.gameweeksStatistics;
 			
 			var filteredGameweeks = [];
 			
