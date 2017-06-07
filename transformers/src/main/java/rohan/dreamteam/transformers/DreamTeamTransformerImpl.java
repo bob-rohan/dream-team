@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rohan.dreamteam.domain.GameweekStatistics;
@@ -23,7 +24,27 @@ import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
 @Service
 public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
-	public Map<Integer, rohan.dreamteam.domain.Team> getTeams(final InitialDataRoot initialDataRoot) {
+	@Autowired
+	DataConverter dataConverter;
+
+	@Override
+	public Collection<Player> transformStringToPlayers(final String playersData) {
+
+		InitialDataRoot initialDataRoot = dataConverter.convertJsonToInitialDataRoot(playersData);
+
+		return getPlayers(initialDataRoot);
+
+	}
+
+	@Override
+	public Collection<GameweekStatistics> transformStringToGameweekStatistics(final String playerData) {
+
+		PlayerDataRoot playerDataRoot = dataConverter.convertJsonToPlayerDataRoot(playerData);
+
+		return getGameweeks(playerDataRoot);
+	}
+
+	private Map<Integer, rohan.dreamteam.domain.Team> getTeams(final InitialDataRoot initialDataRoot) {
 
 		Map<Integer, rohan.dreamteam.domain.Team> teams = new HashMap<>();
 		for (Team team : initialDataRoot.getTeams()) {
@@ -39,7 +60,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		return teams;
 	}
 
-	public Map<Integer, Position> getPositions(final InitialDataRoot initialDataRoot) {
+	private Map<Integer, Position> getPositions(final InitialDataRoot initialDataRoot) {
 
 		Map<Integer, Position> positions = new HashMap<>();
 		for (ElementType position : initialDataRoot.getElement_types()) {
@@ -55,8 +76,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		return positions;
 	}
 
-	@Override
-	public Collection<Player> getPlayers(final InitialDataRoot initialDataRoot) {
+	private Collection<Player> getPlayers(final InitialDataRoot initialDataRoot) {
 
 		final Collection<Player> players = new ArrayList<>();
 
@@ -90,8 +110,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		return players;
 	}
 
-	@Override
-	public Collection<GameweekStatistics> getGameweeks(final PlayerDataRoot playerDataRoot) {
+	private Collection<GameweekStatistics> getGameweeks(final PlayerDataRoot playerDataRoot) {
 
 		final Collection<History> histories = playerDataRoot.getHistory();
 
@@ -112,4 +131,5 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 		return gameweeksStatistics;
 	}
+
 }

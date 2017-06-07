@@ -1,4 +1,4 @@
-package rohan.dreamteam.services;
+package rohan.dreamteam.transformers;
 
 import java.io.IOException;
 
@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import rohan.dreamteam.exceptions.DreamTeamException;
 import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
 import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
+import rohan.dreamteam.transformers.exceptions.DreamTeamTransformationException;
 
 @Service
 public class DataConverterImpl implements DataConverter {
@@ -38,7 +38,7 @@ public class DataConverterImpl implements DataConverter {
 		} catch (IOException e) {
 			final String exceptionMessage = "Exception converting JSON to InitialDataRoot";
 			LOGGER.error(exceptionMessage, e);
-			throw new DreamTeamException(exceptionMessage);
+			throw new DreamTeamTransformationException(exceptionMessage);
 		}
 
 		return initialDataRoot;
@@ -55,7 +55,7 @@ public class DataConverterImpl implements DataConverter {
 		} catch (IOException e) {
 			final String exceptionMessage = "Exception converting JSON to PlayerDataRoot";
 			LOGGER.error(exceptionMessage, e);
-			throw new DreamTeamException(exceptionMessage);
+			throw new DreamTeamTransformationException(exceptionMessage);
 		}
 
 		return playerDataRoot;
@@ -70,7 +70,7 @@ public class DataConverterImpl implements DataConverter {
 		} catch (IOException e) {
 			final String exceptionMessage = "Exception printing JSON";
 			LOGGER.error(exceptionMessage, e);
-			throw new DreamTeamException(exceptionMessage);
+			throw new DreamTeamTransformationException(exceptionMessage);
 		}
 	}
 

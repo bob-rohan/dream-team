@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import rohan.dreamteam.domain.GameweekStatistics;
 import rohan.dreamteam.domain.Player;
-import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
-import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
 import rohan.dreamteam.transformers.DreamTeamTransformer;
 
 @Service
@@ -26,50 +24,39 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	private HttpClientService httpClientService;
 
 	@Autowired
-	private DataConverter dataConverter;
-
-	@Autowired
 	private DreamTeamTransformer dreamTeamTransformer;
 
-	private Collection<Player> players;
+	private Collection<Player> generatedPlayers;
 
 	@Override
 	public Collection<Player> getPlayers() {
 
-		if (players == null) {
-			generatePlayers();
+		if (generatedPlayers == null) {
+			generatedPlayers = generatePlayers();
 		}
 
-		return players;
+		return generatedPlayers;
 
 	}
 
-	private void generatePlayers() {
+	private Collection<Player> generatePlayers() {
 
-		final InitialDataRoot initialDataRoot = getInitialData();
+		final String intialDataResponse = httpClientService.getDataString(DREAM_TEAM_URL_INITIAL_DATA);
 
-		players = dreamTeamTransformer.getPlayers(initialDataRoot);
+		Collection<Player> players = dreamTeamTransformer.transformStringToPlayers(intialDataResponse);
 
 		for (Player player : players) {
 			LOGGER.info("ID: {}, Name: {}", player.getId(), player.getName());
 
-			final PlayerDataRoot playerDataRoot = getPlayerData(player.getId());
+			final String playerDataResponse = httpClientService
+					.getDataString(DREAM_TEAM_URL_PLAYER_DATA + player.getId());
 
-			Collection<GameweekStatistics> gameweeksStatistics = dreamTeamTransformer.getGameweeks(playerDataRoot);
+			Collection<GameweekStatistics> gameweeksStatistics = dreamTeamTransformer
+					.transformStringToGameweekStatistics(playerDataResponse);
 
 			player.setGameweeksStatistics(gameweeksStatistics);
 		}
-	}
 
-	private InitialDataRoot getInitialData() {
-		final String responseBody = httpClientService.getDataString(DREAM_TEAM_URL_INITIAL_DATA);
-
-		return dataConverter.convertJsonToInitialDataRoot(responseBody);
-	}
-
-	private PlayerDataRoot getPlayerData(int playerId) {
-		final String responseBody = httpClientService.getDataString(DREAM_TEAM_URL_PLAYER_DATA + playerId);
-
-		return dataConverter.convertJsonToPlayerDataRoot(responseBody);
+		return players;
 	}
 }
