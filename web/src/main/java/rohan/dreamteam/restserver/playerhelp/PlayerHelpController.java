@@ -1,4 +1,4 @@
-package rohan.dreamteam.web.playerhelp;
+package rohan.dreamteam.restserver.playerhelp;
 
 import java.util.Collection;
 
@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rohan.dreamteam.domain.Player;
@@ -23,7 +22,7 @@ public class PlayerHelpController {
 	@Qualifier("dreamTeamServiceImpl")
 	private DreamTeamService dreamTeamService;
 
-	@RequestMapping(path = "getPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "getPlayers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Player> getPlayers() {
 
 		// TODO: Insert method name programmatically.

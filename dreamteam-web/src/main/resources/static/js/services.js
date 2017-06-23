@@ -5,7 +5,7 @@ fplApp.service('fplService', ['$resource', '$http', '$log', function($resource, 
 	
 	this.getPlayers = function(){
         
-        var GetPlayersResource = $resource('http://localhost:8081/web/getPlayers',
+        var GetPlayersResource = $resource('http://localhost:8088/dreamteam-restserver/getPlayers',
                                { get: {
                 method:"JSON",
                 isArray:true,

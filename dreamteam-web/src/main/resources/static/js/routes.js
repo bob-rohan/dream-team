@@ -4,7 +4,7 @@ fplApp.config(function($routeProvider){
     $routeProvider
     
     .when('/', {
-        templateUrl: 'home.html',
+        templateUrl: '../html/home.html',
         controller: 'fplController'
     })
     

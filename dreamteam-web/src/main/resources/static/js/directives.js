@@ -2,7 +2,7 @@
 fplApp.directive("tablePanel", function(){
    return {
        restrict: 'E',
-       templateUrl: 'tablePanel.html',
+       templateUrl: '../html/tablePanel.html',
        replace: true,
        scope: {
            // @ String
