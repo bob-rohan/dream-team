@@ -15,7 +15,7 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 	
 	$scope.players = {};
 	$scope.slider = {
-		    minValue: 22,
+		    minValue: 0,
 		    maxValue: 38,
 		    options: {
 		        floor: 0,
@@ -30,7 +30,7 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 		    }
 		};
 	$scope.fplFilter = {
-			'minGameweek' : 22,
+			'minGameweek' : 0,
 			'maxGameweek' : 38
 			
 	};
@@ -79,7 +79,9 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			// TODO: potential divide zero bug
 			var pointsPerGame = totalPoints / totalGames;
 			
-			return pointsPerGame.toFixed(2);
+			var rounded = pointsPerGame.toFixed(2);
+			
+			return (rounded > -1) ? rounded : 0;
 		}
 		
 		this.getPointsPerGamePerMillion = function(){
@@ -87,6 +89,22 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			
 			// TODO: potential divide zero bug
 			return (pointsPerGame / this.getNowCost()).toFixed(2);
+		}
+		
+		this.getTotalGames = function(){
+			var gameweeks = this.getGameweeksStatistics();
+			
+			var totalGames = 0;
+			
+			for(var gameweekId = 0; gameweekId < gameweeks.length; gameweekId++){
+				var gameweek = gameweeks[gameweekId];
+				
+				if(gameweek.minutes > 30){
+					totalGames = totalGames + 1;	
+				}
+			}
+			
+			return totalGames;
 		}
 		
 		this.getGameweeksStatistics = function(){
