@@ -19,7 +19,6 @@ public class PlayerHelpController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerHelpController.class);
 
 	@Autowired
-	@Qualifier("dreamTeamServiceImpl")
 	private DreamTeamService dreamTeamService;
 
 	@GetMapping(path = "getPlayers", produces = MediaType.APPLICATION_JSON_VALUE)

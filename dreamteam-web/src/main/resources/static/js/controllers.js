@@ -124,6 +124,14 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			return this.data.position.fullName;
 		}
 		
+		this.getFixtures = function(){
+			return this.data.fixtures;
+		}
+		
+		this.getLikelihoodOfPriceChange = function(){
+			return this.data.likelihoodOfPriceChange;
+		}
+		
 	}
 	
 	$scope.getPlayers = function(){
