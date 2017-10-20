@@ -5,11 +5,17 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rohan.dreamteam.domain.Fixture;
 import rohan.dreamteam.domain.GameweekStatistics;
 import rohan.dreamteam.domain.Player;
 import rohan.dreamteam.domain.PlayerFactory;
@@ -18,11 +24,15 @@ import rohan.dreamteam.fpldomain.initialdata.Element;
 import rohan.dreamteam.fpldomain.initialdata.ElementType;
 import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
 import rohan.dreamteam.fpldomain.initialdata.Team;
+import rohan.dreamteam.fpldomain.playerdata.FplFixture;
 import rohan.dreamteam.fpldomain.playerdata.History;
 import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
+import rohan.dreamteam.transformers.exceptions.DreamTeamTransformationException;
 
 @Service
 public class DreamTeamTransformerImpl implements DreamTeamTransformer {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamTransformerImpl.class);
 
 	@Autowired
 	DataConverter dataConverter;
@@ -37,11 +47,14 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 	}
 
 	@Override
-	public Collection<GameweekStatistics> transformStringToGameweekStatistics(final String playerData) {
-
+	public Player transformStringToPlayer(String playerData, Player player) {
 		PlayerDataRoot playerDataRoot = dataConverter.convertJsonToPlayerDataRoot(playerData);
 
-		return getGameweeks(playerDataRoot);
+		player.setGameweeksStatistics(getGameweeks(playerDataRoot));
+
+		player.setFixtures(getFixtures(playerDataRoot));
+
+		return player;
 	}
 
 	private Map<Integer, rohan.dreamteam.domain.Team> getTeams(final InitialDataRoot initialDataRoot) {
@@ -130,6 +143,85 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		}
 
 		return gameweeksStatistics;
+	}
+
+	private Collection<Fixture> getFixtures(PlayerDataRoot playerDataRoot) {
+
+		final Collection<FplFixture> fplFixtures = playerDataRoot.getFixtures_summary();
+
+		final Collection<Fixture> fixtures = new ArrayList<>();
+
+		for (final FplFixture fplFixture : fplFixtures) {
+			Fixture fixture = new Fixture();
+
+			fixture.setGameweek(fplFixture.getEvent_name());
+			fixture.setDifficulty(fplFixture.getDifficulty());
+			fixture.setHome(fplFixture.isIs_home());
+			fixture.setOponentName(fplFixture.getOpponent_name());
+			fixture.setOponentShortName(fplFixture.getOpponent_short_name());
+
+			fixtures.add(fixture);
+		}
+
+		return fixtures;
+	}
+
+	/**
+	 * This is a particularly fragile algorithm which involves parsing html. The
+	 * host of this data doesn't want to provide a restful endpoint, and so
+	 * "scraping" like this is the only option left to collect the data.
+	 */
+	@Override
+	public Collection<Player> transformPriceChangeStringToPlayers(String priceChangeHtml) {
+		List<Player> players = new ArrayList<>();
+
+		try {
+			LOGGER.info(priceChangeHtml);
+			
+			Document document = Jsoup.parse(priceChangeHtml);
+			
+			org.jsoup.select.Elements table = document.getElementsByClass("webgrid");
+
+			org.jsoup.nodes.Element tableBody = table.first().child(2);
+
+			for (org.jsoup.nodes.Element tableRow : tableBody.children()) {
+				
+				final String teamName = tableRow.child(1).text();
+
+				final String playerName = tableRow.child(0).text();
+
+				final String likelihoodOfPriceChange = getLikelihoodOfPriceChange(tableRow.child(8));
+
+				rohan.dreamteam.domain.Team team = new rohan.dreamteam.domain.Team();
+				team.setName(teamName);
+
+				Player player = new Player();
+
+				player.setTeam(team);
+				player.setName(playerName);
+				player.setLikelihoodOfPriceChange(Double.valueOf(likelihoodOfPriceChange).intValue());
+
+				players.add(player);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Unable to parse fpl statistics", e);
+			throw new DreamTeamTransformationException("Unable to parse fpl statistics");
+		}
+
+		return players;
+	}
+
+	private String getLikelihoodOfPriceChange(org.jsoup.nodes.Element tableData) {
+		String likelihoodofPriceChange;
+
+		if (tableData.childNodeSize() != 0) {
+			likelihoodofPriceChange = tableData.child(0).text();
+		} else {
+			likelihoodofPriceChange = tableData.text();
+		}
+
+		return likelihoodofPriceChange;
 	}
 
 }

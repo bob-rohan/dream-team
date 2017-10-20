@@ -8,7 +8,9 @@ import rohan.dreamteam.domain.Player;
 public interface DreamTeamTransformer {
 
 	Collection<Player> transformStringToPlayers(final String playersData);
-
-	Collection<GameweekStatistics> transformStringToGameweekStatistics(final String playerData);
+	
+	Player transformStringToPlayer(final String playerData, final Player player);
+	
+	Collection<Player> transformPriceChangeStringToPlayers(final String priceChangeHtml);
 
 }

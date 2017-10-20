@@ -22,8 +22,12 @@ public class Player {
 	private Position position;
 
 	private BigDecimal nowCost;
+	
+	private int likelihoodOfPriceChange;
 
 	private Collection<GameweekStatistics> gameweeksStatistics;
+	
+	private Collection<Fixture> fixtures;
 
 	public int getId() {
 		return id;
@@ -87,5 +91,21 @@ public class Player {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public Collection<Fixture> getFixtures() {
+		return fixtures;
+	}
+
+	public void setFixtures(Collection<Fixture> fixtures) {
+		this.fixtures = fixtures;
+	}
+
+	public int getLikelihoodOfPriceChange() {
+		return likelihoodOfPriceChange;
+	}
+
+	public void setLikelihoodOfPriceChange(int likelihoodOfPriceChange) {
+		this.likelihoodOfPriceChange = likelihoodOfPriceChange;
 	}
 }
