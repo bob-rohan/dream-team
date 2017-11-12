@@ -35,6 +35,26 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			
 	};
 	
+	$scope.refreshPlayers = function(){
+		$scope.players = fplService.refreshPlayers();
+		
+		$scope.players
+			.$promise
+				.then(
+						// on success
+						function(response){
+							
+							for(var playerId = 0; playerId < $scope.players.length; playerId++){
+								var player = new Player($scope.players[playerId]);
+								
+								player.positionFullName = $scope.players[playerId].position.fullName;
+								
+								$scope.players[playerId] = player;
+							}
+						}
+				);
+	}
+	
 	$scope.setSortType = function(sortType, sortDirectionIsAscending){
 		console.log("sortType: " + sortType);
 		console.log("sortDirectionIsAscending: " + sortDirectionIsAscending);
@@ -51,6 +71,11 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 	
 	function Player(data) {
 		this.data = data;
+		
+		this.getId = function(){
+			return this.data.id;
+		}
+		
 		this.getTeamName = function(){
 			return this.data.team.name;
 		}

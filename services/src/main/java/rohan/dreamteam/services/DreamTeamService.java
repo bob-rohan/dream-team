@@ -7,5 +7,7 @@ import rohan.dreamteam.domain.Player;
 public interface DreamTeamService {
 
 	Collection<Player> getPlayers();
+	
+	Collection<Player> refreshPlayers();
 
 }

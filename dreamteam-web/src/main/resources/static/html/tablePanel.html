@@ -34,7 +34,7 @@
 	<tbody>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{positionFullName : typeName}">
-			<td class="col-md-2">{{ player.getName() }}</td>
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
 			<td class="col-md-2" ng-class="{info: player.getLikelihoodOfPriceChange() > 94}">{{ player.getNowCost() }}</td>
 			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
 			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>

@@ -95,4 +95,11 @@ public class DreamTeamServiceMock implements DreamTeamService {
 		}
 		return players;
 	}
+	
+	@Override
+	public Collection<Player> refreshPlayers(){
+		Collection<Player> players = getPlayers();
+		players.clear();
+		return players;
+	}
 }
