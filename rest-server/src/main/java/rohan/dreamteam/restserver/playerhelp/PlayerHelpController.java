@@ -29,5 +29,14 @@ public class PlayerHelpController {
 
 		return dreamTeamService.getPlayers();
 	}
+	
+	@GetMapping(path = "refreshPlayers", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Collection<Player> refreshPlayers() {
+
+		// TODO: Insert method name programmatically.
+		LOGGER.info("Received getPlayers request");
+
+		return dreamTeamService.refreshPlayers();
+	}
 
 }

@@ -35,11 +35,19 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	public Collection<Player> getPlayers() {
 
 		if (generatedPlayers == null) {
-			generatedPlayers = generatePlayers();
+			refreshPlayers();
 		}
 
-		return generatedPlayers = generatePlayers();
+		return generatedPlayers;
 
+	}
+	
+	@Override
+	public Collection<Player> refreshPlayers() {
+
+		generatedPlayers = generatePlayers();
+
+		return generatedPlayers;
 	}
 
 	private Collection<Player> generatePlayers() {
