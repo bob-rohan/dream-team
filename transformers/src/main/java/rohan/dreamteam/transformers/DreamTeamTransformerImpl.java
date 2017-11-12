@@ -176,7 +176,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		List<Player> players = new ArrayList<>();
 
 		try {
-			LOGGER.info(priceChangeHtml);
+			LOGGER.trace(priceChangeHtml);
 			
 			Document document = Jsoup.parse(priceChangeHtml);
 			
