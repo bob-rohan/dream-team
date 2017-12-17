@@ -9,6 +9,10 @@
 		<artifactId>dreamteam-pom</artifactId>
 		<version>1.0.0-RELEASE</version>
 	</parent>
+	
+	<scm>
+		<developerConnection>scm:git:git://github.com/bob-rohan/dream-team</developerConnection>
+	</scm>
 
 	<dependencies>
 		<dependency>
