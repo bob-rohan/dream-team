@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build dreamteam-web') {
       steps {
-        build 'dreamteam-web'
+        bat 'dreamteam-web/maven-build.bat'
       }
     }
     stage('Build docker image') {
