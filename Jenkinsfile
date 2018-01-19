@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Build docker image') {
       steps {
-        bat 'dreamteam-web/docker-build.bat'
+        bat 'dreamteam-web\\docker-build.bat'
       }
     }
   }
