@@ -11,5 +11,11 @@ pipeline {
         build 'dreamteam-web'
       }
     }
+    stage('Build docker image') {
+      steps {
+        sh '''cd dreamteam-web;
+docker build -t bobrohan/dreamteam-web .'''
+      }
+    }
   }
 }
