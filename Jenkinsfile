@@ -27,7 +27,8 @@ pipeline {
         sh 'pwd'
         unstash 'dreamteam-web'
         unstash 'dreamteam-web-dockerfile'
-        sh 'docker build -t bobrohan/dreamteam-web:latest .'
+        sh '''cd dreamteam-web
+docker build -t bobrohan/dreamteam-web:latest .'''
       }
     }
   }
