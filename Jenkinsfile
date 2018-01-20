@@ -18,12 +18,12 @@ pipeline {
         }
         
       }
-      environment {
-        skipDefaultCheckout = 'true'
-      }
       steps {
         sh 'pwd'
       }
     }
+  }
+  environment {
+    skipDefaultCheckout = 'true'
   }
 }
