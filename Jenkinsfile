@@ -42,8 +42,7 @@ docker build -t bobrohan/dreamteam-web:latest .'''
         skipDefaultCheckout(true)
       }
       steps {
-        sh '''docker stop $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')
-docker rm $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')'''
+        sh 'pwd'
       }
     }
     stage('Docker run') {
