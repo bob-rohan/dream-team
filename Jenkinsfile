@@ -14,6 +14,12 @@ pipeline {
     stage('Mvn build deamteam-web') {
       parallel {
         stage('Mvn build deamteam-web') {
+          agent {
+            node {
+              label 'Raspberry Pi'
+            }
+            
+          }
           options {
             skipDefaultCheckout(true)
           }
@@ -24,6 +30,15 @@ pipeline {
           }
         }
         stage('Mvn build dreamteam-rest') {
+          agent {
+            node {
+              label 'Raspberry Pi'
+            }
+            
+          }
+          options {
+            skipDefaultCheckout(true)
+          }
           steps {
             bat 'rest-server\\maven-build.bat'
             stash(name: 'rest-server-jar', includes: 'rest-server\\target\\*.jar')
@@ -52,6 +67,15 @@ docker build -t bobrohan/dreamteam-web:latest .'''
           }
         }
         stage('Docker build dreamteam-rest') {
+          agent {
+            node {
+              label 'Raspberry Pi'
+            }
+            
+          }
+          options {
+            skipDefaultCheckout(true)
+          }
           steps {
             unstash 'rest-server-jar'
             unstash 'rest-server-dockerfile'
@@ -79,6 +103,15 @@ docker rm $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')'''
           }
         }
         stage('Docker clean dreamteam-rest') {
+          agent {
+            node {
+              label 'Raspberry Pi'
+            }
+            
+          }
+          options {
+            skipDefaultCheckout(true)
+          }
           steps {
             sh '''docker stop $(docker ps -a | grep dreamteam-rest | awk \'{print $1}\')
 docker rm $(docker ps -a | grep dreamteam-rest | awk \'{print $1}\')'''
@@ -103,6 +136,15 @@ docker rm $(docker ps -a | grep dreamteam-rest | awk \'{print $1}\')'''
           }
         }
         stage('Docker run dreamteam-rest') {
+          agent {
+            node {
+              label 'Raspberry Pi'
+            }
+            
+          }
+          options {
+            skipDefaultCheckout(true)
+          }
           steps {
             sh 'docker run -d -p 8088:8088 --name=dreamteam-rest bobrohan/dreamteam-rest'
           }
