@@ -12,8 +12,14 @@ pipeline {
       }
     }
     stage('Build docker image') {
+      agent {
+        node {
+          label 'Raspberry Pi'
+        }
+        
+      }
       steps {
-        bat 'dreamteam-web\\docker-build.bat'
+        sh 'pwd'
       }
     }
   }
