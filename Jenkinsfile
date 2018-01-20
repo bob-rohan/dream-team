@@ -6,6 +6,13 @@ pipeline {
     
   }
   stages {
+    stage('SCM dreamteam') {
+      steps {
+        bat 'dreamteam-web/maven-build.bat'
+        stash(name: 'dreamteam-web', includes: 'dreamteam-web\\target\\*.jar')
+        stash(name: 'dreamteam-web-dockerfile', includes: 'dreamteam-web\\Dockerfile')
+      }
+    }
     stage('Build dreamteam-web') {
       steps {
         bat 'dreamteam-web/maven-build.bat'
