@@ -17,6 +17,9 @@ pipeline {
         stash(name: 'dreamteam-web', includes: 'dreamteam-web\\target\\*.jar')
         stash(name: 'dreamteam-web-dockerfile', includes: 'dreamteam-web\\Dockerfile')
       }
+      options {
+        skipDefaultCheckout(true)
+      }
     }
     stage('Docker build') {
       agent {
