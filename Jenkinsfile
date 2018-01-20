@@ -14,12 +14,6 @@ pipeline {
     stage('Mvn build deamteam-web') {
       parallel {
         stage('Mvn build deamteam-web') {
-          agent {
-            node {
-              label 'Raspberry Pi'
-            }
-            
-          }
           options {
             skipDefaultCheckout(true)
           }
@@ -30,12 +24,6 @@ pipeline {
           }
         }
         stage('Mvn build dreamteam-rest') {
-          agent {
-            node {
-              label 'Raspberry Pi'
-            }
-            
-          }
           options {
             skipDefaultCheckout(true)
           }
