@@ -38,6 +38,9 @@ docker build -t bobrohan/dreamteam-web:latest .'''
         }
         
       }
+      options {
+        skipDefaultCheckout(true)
+      }
       steps {
         sh '''docker stop $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')
 docker rm $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')'''
@@ -49,6 +52,9 @@ docker rm $(docker ps -a | grep dreamteam-web | awk \'{print $1}\')'''
           label 'Raspberry Pi'
         }
         
+      }
+      options {
+        skipDefaultCheckout(true)
       }
       steps {
         sh 'docker run -d -p 8089:8089 --name=dreamteam-web bobrohan/dreamteam-web'
