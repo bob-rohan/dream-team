@@ -15,15 +15,14 @@ pipeline {
       agent {
         node {
           label 'Raspberry Pi'
-        }
-        
+        }  
+      }
+      options{
+        skipDefaultCheckout true
       }
       steps {
         sh 'pwd'
       }
     }
-  }
-  environment {
-    skipDefaultCheckout = 'true'
   }
 }
