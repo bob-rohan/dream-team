@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Mvn build dreamteam-rest') {
           steps {
-            bat 'rest=server\\maven-build.bat'
+            bat 'rest-server\\maven-build.bat'
             stash(name: 'rest-server-jar', includes: 'rest-server\\target\\*.jar')
             stash(name: 'rest-server-dockerfile', includes: 'rest-server\\Dockerfile')
           }
