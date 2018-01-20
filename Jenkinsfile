@@ -9,7 +9,7 @@ pipeline {
     stage('Build dreamteam-web') {
       steps {
         bat 'dreamteam-web/maven-build.bat'
-        stash(name: 'dreamteam-web', includes: 'dreamteam\\dreamteam-web\\target\\*.jar')
+        stash(name: 'dreamteam-web', includes: '*')
       }
     }
     stage('Build docker image') {
