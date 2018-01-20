@@ -18,6 +18,9 @@ pipeline {
         }
         
       }
+      environment {
+        skipDefaultCheckout = 'true'
+      }
       steps {
         sh 'pwd'
       }
