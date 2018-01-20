@@ -8,9 +8,7 @@ pipeline {
   stages {
     stage('SCM dreamteam') {
       steps {
-        bat 'dreamteam-web/maven-build.bat'
-        stash(name: 'dreamteam-web', includes: 'dreamteam-web\\target\\*.jar')
-        stash(name: 'dreamteam-web-dockerfile', includes: 'dreamteam-web\\Dockerfile')
+        echo 'Starting dreamteam pipeline'
       }
     }
     stage('Build dreamteam-web') {
@@ -31,7 +29,6 @@ pipeline {
         skipDefaultCheckout(true)
       }
       steps {
-        sh 'pwd'
         unstash 'dreamteam-web'
         unstash 'dreamteam-web-dockerfile'
         sh '''cd dreamteam-web
