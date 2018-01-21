@@ -14,3 +14,17 @@ fplApp.directive("tablePanel", function(){
    } 
     
 });
+
+fplApp.directive("priceChangePanel", function(){
+	   return {
+	       restrict: 'E',
+	       templateUrl: '../html/priceChangePanel.html',
+	       replace: true,
+	       scope: {
+	           // = Object
+	           sortType: "=",
+	           players: "="
+	       }
+	   } 
+	    
+	});
