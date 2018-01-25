@@ -2,6 +2,8 @@ package rohan.dreamteam.services;
 
 import java.util.Collection;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	private static final String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/drf/element-summary/";
 	
 	private static final String FPL_STATISTICS = "http://www.fplstatistics.co.uk/Home/IndexWG";
+	
+	private static final String FPL_STATISTICS_PAGE_PARAM = "gridPriceData_inside";
 
 	@Autowired
 	private HttpClientService httpClientService;
@@ -52,9 +56,20 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	private Collection<Player> generatePlayers() {
 
-		final String priceChangeHtml = httpClientService.getDataString(FPL_STATISTICS);
+		String priceChangeHtml = httpClientService.getDataString(FPL_STATISTICS);
 		
 		final Collection<Player> priceChangePlayers = dreamTeamTransformer.transformPriceChangeStringToPlayers(priceChangeHtml);
+		
+		int pageNumber = 1;
+		
+		while(containsMorePriceChangePages(priceChangeHtml)){
+			
+			pageNumber++;
+			
+			priceChangeHtml = httpClientService.getDataString(FPL_STATISTICS + "?" + FPL_STATISTICS_PAGE_PARAM + "=" + pageNumber);	
+			
+			priceChangePlayers.addAll(dreamTeamTransformer.transformPriceChangeStringToPlayers(priceChangeHtml));
+		}
 		
 		final String intialDataResponse = httpClientService.getDataString(DREAM_TEAM_URL_INITIAL_DATA);
 
@@ -74,6 +89,31 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 		}
 
 		return players;
+	}
+	
+	private boolean containsMorePriceChangePages(String priceChangeHtml){
+		
+		Document document = Jsoup.parse(priceChangeHtml);
+		
+		org.jsoup.select.Elements table = document.getElementsByClass("webgrid");
+
+		org.jsoup.nodes.Element tableFooter = table.first().child(1);
+		
+		org.jsoup.nodes.Element tableFooterRow = tableFooter.child(0);
+		
+		org.jsoup.nodes.Element tableFooterRowData = tableFooterRow.child(0);
+		
+		boolean containsMorePriceChangePages = false;
+		
+		for (org.jsoup.nodes.Element element : tableFooterRowData.children()) {
+			if(element.text().contains(">")){
+				containsMorePriceChangePages = true;
+				break;
+			}
+		}
+		
+		return containsMorePriceChangePages;
+		
 	}
 	
 	private void applyPriceChangeStats(Collection<Player> priceChangePlayers, final Player player){
