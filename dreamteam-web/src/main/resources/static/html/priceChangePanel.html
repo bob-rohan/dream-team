@@ -33,7 +33,7 @@
 	<thead>
 	<tbody>
 		<tr class="row"
-			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending" ng-if="player.getLikelihoodOfPriceChange() > 94">
+			ng-repeat="player in players | orderBy:'getLikelihoodOfPriceChangeWithoutSign()':$parent.sortDirectionIsAscending" ng-if="player.getLikelihoodOfPriceChange() > 94 || player.getLikelihoodOfPriceChange() < -94">
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
 			<td class="col-md-1">{{ player.getLikelihoodOfPriceChange() }}</td>
 			<td class="col-md-2">{{ player.getNowCost() }}</td>

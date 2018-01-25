@@ -157,6 +157,14 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			return this.data.likelihoodOfPriceChange;
 		}
 		
+		this.getLikelihoodOfPriceChangeWithoutSign = function(){
+			if(this.data.likelihoodOfPriceChange < 0){
+				return this.data.likelihoodOfPriceChange * -1;
+			} else {
+				return this.data.likelihoodOfPriceChange;	
+			}
+		}
+		
 	}
 	
 	$scope.getPlayers = function(){
