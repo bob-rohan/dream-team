@@ -1,0 +1,38 @@
+<table class="table table-striped">
+
+	<thead>
+		<tr class="row">
+			<th class="col-md-2">Player Name</th>
+			<th class="col-md-2">Fitness %</th>
+			<th class="col-md-2">Fitness Commentary</th>
+			<th class="col-md-2"><a href="#/"
+				ng-click="$parent.setSortType('getPointsPerGame()', $parent.sortDirectionIsAscending)">
+					PPG <i class="glyphicon"
+					ng-show="sortType == 'getPointsPerGame()' && $parent.sortDirectionIsAscending"
+					ng-class="'glyphicon-chevron-up'"></i> <i class="glyphicon"
+					ng-show="sortType == 'getPointsPerGame()' && !$parent.sortDirectionIsAscending"
+					ng-class="'glyphicon-chevron-down'"></i>
+			</a></th>
+			<th class="col-md-2"><a href="#/"
+				ng-click="$parent.setSortType('getPointsPerGamePerMillion()', $parent.sortDirectionIsAscending)">
+					PPMPG <i class="glyphicon"
+					ng-show="sortType == 'getPointsPerGamePerMillion()' && $parent.sortDirectionIsAscending"
+					ng-class="'glyphicon-chevron-up'"></i> <i class="glyphicon"
+					ng-show="sortType == 'getPointsPerGamePerMillion()' && !$parent.sortDirectionIsAscending"
+					ng-class="'glyphicon-chevron-down'"></i>
+			</a></th>
+			<th class="col-md-2">Team Name</th>
+		</tr>
+	<thead>
+	<tbody>
+		<tr class="row"
+			ng-repeat="player in players | orderBy:'getName()':$parent.sortDirectionIsDescending" ng-if="player.getFitnessCommentary() != ''">
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
+			<td class="col-md-1">{{ player.getChanceOfPlaying() }}</td>
+			<td class="col-md-2">{{ player.getFitnessCommentary() }}</td>
+			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
+			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
+			<td class="col-md-2">{{ player.getTeamName() }}</td>
+		</tr>
+	</tbody>
+</table>

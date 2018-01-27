@@ -33,8 +33,8 @@
 	<thead>
 	<tbody>
 		<tr class="row"
-			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{positionFullName : typeName}">
-			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
+			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{positionFullName : typeName}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
 			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>

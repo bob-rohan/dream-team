@@ -165,6 +165,14 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			}
 		}
 		
+		this.getChanceOfPlaying = function(){
+			return this.data.fitness.chanceOfPlaying;
+		}
+		
+		this.getFitnessCommentary = function(){
+			return this.data.fitness.commentary;
+		}
+		
 	}
 	
 	$scope.getPlayers = function(){

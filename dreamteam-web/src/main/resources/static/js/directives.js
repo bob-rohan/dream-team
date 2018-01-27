@@ -28,3 +28,17 @@ fplApp.directive("priceChangePanel", function(){
 	   } 
 	    
 	});
+
+fplApp.directive("fitnessPanel", function(){
+	   return {
+	       restrict: 'E',
+	       templateUrl: '../html/fitnessPanel.html',
+	       replace: true,
+	       scope: {
+	           // = Object
+	           sortType: "=",
+	           players: "="
+	       }
+	   } 
+	    
+	});

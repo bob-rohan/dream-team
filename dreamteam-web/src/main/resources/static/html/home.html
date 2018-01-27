@@ -26,6 +26,8 @@
 			data-toggle="tab">Forwards</a></li>
 		<li id="PriceChanges-tab"><a data-target="#pricechange"
 			data-toggle="tab">Price Changes</a></li>
+		<li id="Fitness-tab"><a data-target="#fitness"
+			data-toggle="tab">Fitness</a></li>
 	</ul>
 
 	<div id="tabContent" class="tab-content">
@@ -54,10 +56,14 @@
 				players="players" fpl-filter="fplFilter"> </table-panel>
 		</div>
 		
-		<!-- we need something other than the table pannel -->
 		<div id="pricechange" class="tab-pane">
 			<price-change-panel sort-type="sortType"
 				players="players" fpl-filter="fplFilter"> </price-change-panel>
+		</div>
+		
+		<div id="fitness" class="tab-pane">
+			<fitness-panel sort-type="sortType"
+				players="players" fpl-filter="fplFilter"> </fitness-panel>
 		</div>
 	</div>
 	
