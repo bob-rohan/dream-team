@@ -15,6 +15,10 @@ public class Element {
 	private int element_type;
 
 	private int now_cost;
+	
+	private String news;
+	
+	private int chance_of_playing_next_round;
 
 	public int getId() {
 		return id;
@@ -70,6 +74,22 @@ public class Element {
 
 	public void setYellow_cards(int yellow_cards) {
 		this.yellow_cards = yellow_cards;
+	}
+
+	public String getNews() {
+		return news;
+	}
+
+	public void setNews(String news) {
+		this.news = news;
+	}
+
+	public int getChance_of_playing_next_round() {
+		return chance_of_playing_next_round;
+	}
+
+	public void setChance_of_playing_next_round(int chance_of_playing_next_round) {
+		this.chance_of_playing_next_round = chance_of_playing_next_round;
 	}
 
 }
