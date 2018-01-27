@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rohan.dreamteam.domain.Fitness;
 import rohan.dreamteam.domain.Fixture;
 import rohan.dreamteam.domain.GameweekStatistics;
 import rohan.dreamteam.domain.Player;
@@ -116,6 +117,11 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 			rohan.dreamteam.domain.Team team = teams.get(element.getTeam_code());
 			player.setTeam(team);
 			player.setPosition(position);
+			
+			Fitness fitness = new Fitness();
+			fitness.setChanceOfPlaying(element.getChance_of_playing_next_round());
+			fitness.setCommentary(element.getNews());
+			player.setFitness(fitness);
 
 			players.add(player);
 		}
