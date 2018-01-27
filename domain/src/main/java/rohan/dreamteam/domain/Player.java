@@ -28,6 +28,8 @@ public class Player {
 	private Collection<GameweekStatistics> gameweeksStatistics;
 	
 	private Collection<Fixture> fixtures;
+	
+	private Fitness fitness;
 
 	public int getId() {
 		return id;
@@ -107,5 +109,13 @@ public class Player {
 
 	public void setLikelihoodOfPriceChange(int likelihoodOfPriceChange) {
 		this.likelihoodOfPriceChange = likelihoodOfPriceChange;
+	}
+
+	public Fitness getFitness() {
+		return fitness;
+	}
+
+	public void setFitness(Fitness fitness) {
+		this.fitness = fitness;
 	}
 }
