@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>rohan.dreamteam</groupId>
 	<artifactId>dreamteam-pom</artifactId>
-	<version>1.1.0-RELEASE</version>
+	<version>1.2.0-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -27,8 +27,8 @@
 		<!-- Internal dependency version -->
 		<dreamteam-transformers-version>1.0.0-RELEASE</dreamteam-transformers-version>
 		<dreamteam-services-version>1.1.0-RELEASE</dreamteam-services-version>
-		<dreamteam-fpl-domain-version>1.0.2-RELEASE</dreamteam-fpl-domain-version>
-		<dreamteam-domain-version>2.0.2-RELEASE</dreamteam-domain-version>
+		<dreamteam-fpl-domain-version>1.1.0-RELEASE</dreamteam-fpl-domain-version>
+		<dreamteam-domain-version>2.1.0-RELEASE</dreamteam-domain-version>
 
 		<!-- Plugin versions -->
 		<maven-war-plugin-version>3.0.0</maven-war-plugin-version>
