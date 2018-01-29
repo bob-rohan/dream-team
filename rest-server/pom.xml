@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>rest-server</artifactId>
-	<version>5.1.0-RELEASE</version>
+	<version>5.2.0-RELEASE</version>
 	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>rohan.dreamteam</groupId>
 		<artifactId>dreamteam-pom</artifactId>
-		<version>1.3.0-RELEASE</version>
+		<version>1.4.0-RELEASE</version>
 	</parent>
 
 	<properties>
