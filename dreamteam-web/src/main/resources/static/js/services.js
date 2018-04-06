@@ -11,7 +11,7 @@ fplApp
 							this.getPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://192.168.0.7:8088/dreamteam-restserver/getPlayers',
+										'http://dreamteam:8088/dreamteam-restserver/getPlayers',
 										{
 											get : {
 												method : "JSON",
