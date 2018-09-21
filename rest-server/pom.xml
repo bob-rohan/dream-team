@@ -32,12 +32,22 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<!-- TODO: refactor version up to parent -->
+			<version>1.10.3</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -60,15 +70,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-		</dependency>
-		<!-- Internal Artifacts -->
-		<dependency>
-			<groupId>rohan.dreamteam</groupId>
-			<artifactId>services</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>rohan.dreamteam</groupId>
-			<artifactId>domain</artifactId>
 		</dependency>
 	</dependencies>
 
