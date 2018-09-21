@@ -50,6 +50,7 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 								// NB: set attributes for ng-filter
 								player.positionFullName = $scope.players[playerId].position.fullName;
 								player.selected = $scope.players[playerId].selected;
+								player.fixtures = $scope.players[playerId].fixtures;
 								
 								$scope.players[playerId] = player;
 							}
@@ -181,6 +182,7 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 		
 	}
 	
+	
 	$scope.getPlayers = function(){
 		$scope.players = fplService.getPlayers();
 		
@@ -197,8 +199,26 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 								player.positionFullName = $scope.players[playerId].position.fullName;
 								player.selected = $scope.players[playerId].selected;
 								
+								if(playerId == 0){
+								  $scope.gameweeks = $scope.players[playerId].fixtures;
+								  
+								  for(var gameweekId = 0; gameweekId < $scope.gameweeks.length; gameweekId++){
+									  $scope.gameweeks[gameweekId].difficulty = 0;
+								  }
+								}
+								
+								if(player.selected == true){
+									for(var gameweekId = 0; gameweekId < $scope.gameweeks.length; gameweekId++){
+										
+										$scope.gameweeks[gameweekId].difficulty = ($scope.gameweeks[gameweekId].difficulty + $scope.players[playerId].fixtures[gameweekId].difficulty);
+										
+									}
+								}
+								
 								$scope.players[playerId] = player;
 							}
+							
+							
 						}
 				);
 	}

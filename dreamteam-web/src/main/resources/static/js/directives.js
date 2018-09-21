@@ -51,7 +51,8 @@ fplApp.directive("squadPanel", function(){
 	       scope: {
 	           // = Object
 	           sortType: "=",
-	           players: "="
+	           players: "=",
+	           gameweeks: "="
 	       }
 	   } 
 	    
