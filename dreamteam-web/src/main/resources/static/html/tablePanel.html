@@ -43,7 +43,7 @@
 				<div>
 					<table class="table table-responsive">
 						<tr>
-							<td ng-repeat="fixture in fixtures"
+							<td ng-repeat="fixture in fixtures | limitTo:3"
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
 								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
