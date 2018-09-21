@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>rohan.dreamteam</groupId>
 		<artifactId>dreamteam-pom</artifactId>
-		<version>1.0.0-RELEASE</version>
+		<version>1.4.0-RELEASE</version>
 	</parent>
 
 	<properties>
@@ -38,6 +38,13 @@
 				<configuration>
 					<executable>true</executable>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
