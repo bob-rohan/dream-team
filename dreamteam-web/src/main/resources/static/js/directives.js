@@ -42,3 +42,17 @@ fplApp.directive("fitnessPanel", function(){
 	   } 
 	    
 	});
+
+fplApp.directive("squadPanel", function(){
+	   return {
+	       restrict: 'E',
+	       templateUrl: '../html/squadPanel.html',
+	       replace: true,
+	       scope: {
+	           // = Object
+	           sortType: "=",
+	           players: "="
+	       }
+	   } 
+	    
+	});

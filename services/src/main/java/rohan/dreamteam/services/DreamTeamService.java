@@ -1,13 +1,11 @@
 package rohan.dreamteam.services;
 
-import java.util.Collection;
-
 import rohan.dreamteam.domain.Player;
 
 public interface DreamTeamService {
 
-	Collection<Player> getPlayers();
+	Iterable<Player> getPlayers();
 	
-	Collection<Player> refreshPlayers();
+	Iterable<Player> refreshPlayers();
 
 }

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import rohan.dreamteam.domain.Player;
+import rohan.dreamteam.services.dao.PlayerRepository;
 import rohan.dreamteam.transformers.DreamTeamTransformer;
 
 @Service
@@ -32,29 +33,26 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	@Autowired
 	private DreamTeamTransformer dreamTeamTransformer;
-
-	private Collection<Player> generatedPlayers;
+	
+	@Autowired
+	private PlayerRepository playerRepository;
 
 	@Override
-	public Collection<Player> getPlayers() {
+	public Iterable<Player> getPlayers() {
 
-		if (generatedPlayers == null) {
-			refreshPlayers();
-		}
-
-		return generatedPlayers;
+		return playerRepository.findAll();
 
 	}
 	
 	@Override
-	public Collection<Player> refreshPlayers() {
+	public Iterable<Player> refreshPlayers() {
 
-		generatedPlayers = generatePlayers();
+		refreshPlayerData();
 
-		return generatedPlayers;
+		return playerRepository.findAll();
 	}
 
-	private Collection<Player> generatePlayers() {
+	private void refreshPlayerData() {
 
 		String priceChangeHtml = httpClientService.getDataString(FPL_STATISTICS);
 		
@@ -76,19 +74,34 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 		Collection<Player> players = dreamTeamTransformer.transformStringToPlayers(intialDataResponse);
 		
 		for (Player player : players) {
-			LOGGER.info("ID: {}, Name: {}", player.getId(), player.getName());
+			LOGGER.info("ID: {}, Name: {}", player.getFplId(), player.getName());
 
 			final String playerDataResponse = httpClientService
-					.getDataString(DREAM_TEAM_URL_PLAYER_DATA + player.getId());
+					.getDataString(DREAM_TEAM_URL_PLAYER_DATA + player.getFplId());
 			
 			dreamTeamTransformer.transformStringToPlayer(playerDataResponse, player);
 			
 			applyPriceChangeStats(priceChangePlayers, player);
 			
 			LOGGER.trace("Player = {}", player);
+			
+			upsert(player);
 		}
-
-		return players;
+	}
+	
+	// TODO: refactor to DAO
+	private void upsert(final Player player) {
+		
+		Player persistedPlayer = playerRepository.findByFplId(player.getFplId());
+		
+		if(persistedPlayer != null) {
+			player.setId(persistedPlayer.getId());
+			
+			// TODO: think about implementation
+			player.setSelected(persistedPlayer.getSelected());
+		}
+		
+		playerRepository.save(player);
 	}
 	
 	private boolean containsMorePriceChangePages(String priceChangeHtml){

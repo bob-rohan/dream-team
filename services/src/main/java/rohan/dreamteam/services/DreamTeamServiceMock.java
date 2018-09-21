@@ -52,7 +52,7 @@ public class DreamTeamServiceMock implements DreamTeamService {
 
 			for (Player player : players) {
 				final List<String> playerDataResponseLines = Files
-						.readAllLines(Paths.get(PLAYER_DATA_PATH + "player" + player.getId() + ".json"));
+						.readAllLines(Paths.get(PLAYER_DATA_PATH + "player" + player.getFplId() + ".json"));
 
 				String playerData = playerDataResponseLines.toString();
 				// get rid of the square brackets from the array

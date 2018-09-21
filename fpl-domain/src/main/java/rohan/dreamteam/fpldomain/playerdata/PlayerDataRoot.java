@@ -6,7 +6,7 @@ public class PlayerDataRoot {
 
 	private Collection<History> history;
 	
-	private Collection<FplFixture> fixtures_summary;
+	private Collection<FplFixture> fixtures;
 	
 	public Collection<History> getHistory() {
 		return history;
@@ -16,12 +16,12 @@ public class PlayerDataRoot {
 		this.history = history;
 	}
 
-	public Collection<FplFixture> getFixtures_summary() {
-		return fixtures_summary;
+	public Collection<FplFixture> getFixtures() {
+		return fixtures;
 	}
 
-	public void setFixtures_summary(Collection<FplFixture> fixtures_summary) {
-		this.fixtures_summary = fixtures_summary;
+	public void setFixtures(Collection<FplFixture> fixtures) {
+		this.fixtures = fixtures;
 	}
 
 }

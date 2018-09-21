@@ -1,11 +1,8 @@
 package rohan.dreamteam.restserver.playerhelp;
 
-import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +19,7 @@ public class PlayerHelpController {
 	private DreamTeamService dreamTeamService;
 
 	@GetMapping(path = "getPlayers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Player> getPlayers() {
+	public Iterable<Player> getPlayers() {
 
 		// TODO: Insert method name programmatically.
 		LOGGER.info("Received getPlayers request");
@@ -31,7 +28,7 @@ public class PlayerHelpController {
 	}
 	
 	@GetMapping(path = "refreshPlayers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Player> refreshPlayers() {
+	public Iterable<Player> refreshPlayers() {
 
 		// TODO: Insert method name programmatically.
 		LOGGER.info("Received getPlayers request");

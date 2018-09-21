@@ -104,7 +104,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 			Position position = positions.get(element.getElement_type());
 			Player player = PlayerFactory.getPlayer(position.getShortName());
 
-			player.setId(element.getId());
+			player.setFplId(element.getId());
 			player.setName(element.getWeb_name());
 			player.setTotalYellowCards(element.getYellow_cards());
 
@@ -122,6 +122,8 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 			fitness.setChanceOfPlaying(element.getChance_of_playing_next_round());
 			fitness.setCommentary(element.getNews());
 			player.setFitness(fitness);
+			
+			player.setSelected(false);
 
 			players.add(player);
 		}
@@ -153,7 +155,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 	private Collection<Fixture> getFixtures(PlayerDataRoot playerDataRoot) {
 
-		final Collection<FplFixture> fplFixtures = playerDataRoot.getFixtures_summary();
+		final Collection<FplFixture> fplFixtures = playerDataRoot.getFixtures();
 
 		final Collection<Fixture> fixtures = new ArrayList<>();
 

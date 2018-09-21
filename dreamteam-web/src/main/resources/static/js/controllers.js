@@ -47,7 +47,9 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 							for(var playerId = 0; playerId < $scope.players.length; playerId++){
 								var player = new Player($scope.players[playerId]);
 								
+								// NB: set attributes for ng-filter
 								player.positionFullName = $scope.players[playerId].position.fullName;
+								player.selected = $scope.players[playerId].selected;
 								
 								$scope.players[playerId] = player;
 							}
@@ -173,6 +175,10 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			return this.data.fitness.commentary;
 		}
 		
+		this.getSelected = function(){
+			return this.data.selected;
+		}
+		
 	}
 	
 	$scope.getPlayers = function(){
@@ -187,7 +193,9 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 							for(var playerId = 0; playerId < $scope.players.length; playerId++){
 								var player = new Player($scope.players[playerId]);
 								
+								// NB: set attributes for ng-filter
 								player.positionFullName = $scope.players[playerId].position.fullName;
+								player.selected = $scope.players[playerId].selected;
 								
 								$scope.players[playerId] = player;
 							}

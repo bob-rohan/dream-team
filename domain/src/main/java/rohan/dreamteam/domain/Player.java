@@ -3,13 +3,18 @@ package rohan.dreamteam.domain;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * @author Admin
  *
  */
 public class Player {
 
-	private int id;
+	@Id
+	private String id;
+	
+	private int fplId;
 
 	private int totalPoints;
 
@@ -30,13 +35,15 @@ public class Player {
 	private Collection<Fixture> fixtures;
 	
 	private Fitness fitness;
+	
+	private Boolean selected;
 
-	public int getId() {
-		return id;
+	public int getFplId() {
+		return fplId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setFplId(int fplId) {
+		this.fplId = fplId;
 	}
 
 	public String getName() {
@@ -117,5 +124,21 @@ public class Player {
 
 	public void setFitness(Fitness fitness) {
 		this.fitness = fitness;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
 	}
 }
