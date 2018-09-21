@@ -31,7 +31,7 @@ public class PlayerHelpController {
 	public Iterable<Player> refreshPlayers() {
 
 		// TODO: Insert method name programmatically.
-		LOGGER.info("Received getPlayers request");
+		LOGGER.info("Received refreshPlayers request");
 
 		return dreamTeamService.refreshPlayers();
 	}
