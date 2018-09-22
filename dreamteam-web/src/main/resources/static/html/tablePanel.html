@@ -28,7 +28,7 @@
 					ng-class="'glyphicon-chevron-down'"></i>
 			</a></th>
 			<th class="col-md-2">Team Name</th>
-			<th class="col-md-2">Fixtures</th>
+			<th class="col-md-1" ng-repeat="gameweek in gameweeks | limitTo:3">{{ gameweek.gameweek }}</th>
 		</tr>
 	<thead>
 	<tbody>
@@ -39,18 +39,10 @@
 			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
 			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
 			<td class="col-md-2">{{ player.getTeamName() }}</td>
-			<td class="col-md-1" ng-init="fixtures = player.getFixtures()">
-				<div>
-					<table class="table table-responsive">
-						<tr>
-							<td ng-repeat="fixture in fixtures | limitTo:3"
+			<td class="col-md-1" ng-repeat="fixture in player.getFixtures() | limitTo:3""
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
 								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
-							</td>
-						</tr>
-					</table>
-				</div>
 			</td>
 		</tr>
 	</tbody>

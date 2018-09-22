@@ -9,7 +9,8 @@ fplApp.directive("tablePanel", function(){
            typeName: "@",
            // = Object
            sortType: "=",
-           players: "="
+           players: "=",
+           gameweeks: "="
        }
    } 
     
