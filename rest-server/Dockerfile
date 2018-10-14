@@ -1,4 +1,4 @@
-FROM arm32v7/openjdk:8-jre
+FROM openjdk:8-jre
 MAINTAINER Bob Rohan <bobrohan87@gmail.com>
 ADD target/rest-server-5.2.0-RELEASE.jar app.jar
 ENV JAVA_OPTS=""

@@ -11,7 +11,7 @@ fplApp
 							this.getPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://dreamteam:8088/dreamteam-restserver/getPlayers',
+										'http://35.231.44.185:8088/dreamteam-restserver/getPlayers',
 										{
 											get : {
 												method : "JSON",
@@ -31,7 +31,7 @@ fplApp
 							this.refreshPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://dreamteam:8088/dreamteam-restserver/refreshPlayers',
+										'http://35.231.44.185:8088/dreamteam-restserver/refreshPlayers',
 										{
 											get : {
 												method : "JSON",
