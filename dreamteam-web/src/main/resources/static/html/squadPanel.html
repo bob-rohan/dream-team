@@ -3,33 +3,15 @@
 	<thead>
 		<tr class="row">
 			<th class="col-md-2">Player Name</th>
-			<th class="col-md-2"><a href="#/"
-				ng-click="$parent.setSortType('getPointsPerGame()', $parent.sortDirectionIsAscending)">
-					PPG <i class="glyphicon"
-					ng-show="sortType == 'getPointsPerGame()' && $parent.sortDirectionIsAscending"
-					ng-class="'glyphicon-chevron-up'"></i> <i class="glyphicon"
-					ng-show="sortType == 'getPointsPerGame()' && !$parent.sortDirectionIsAscending"
-					ng-class="'glyphicon-chevron-down'"></i>
-			</a></th>
-			<th class="col-md-2"><a href="#/"
-				ng-click="$parent.setSortType('getPointsPerGamePerMillion()', $parent.sortDirectionIsAscending)">
-					PPMPG <i class="glyphicon"
-					ng-show="sortType == 'getPointsPerGamePerMillion()' && $parent.sortDirectionIsAscending"
-					ng-class="'glyphicon-chevron-up'"></i> <i class="glyphicon"
-					ng-show="sortType == 'getPointsPerGamePerMillion()' && !$parent.sortDirectionIsAscending"
-					ng-class="'glyphicon-chevron-down'"></i>
-			</a></th>
-			<th class="col-md-2">Team Name</th>
+			<th class="col-md-2">Cost</th>
 			<th class="col-md-1" ng-repeat="gameweek in gameweeks">{{ gameweek.gameweek }} ({{ gameweek.difficulty }})</th>
 		</tr>
 	<thead>
 	<tbody>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{selected:true, positionFullName: 'Goalkeeper'}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
-			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
-			<td class="col-md-2">{{ player.getTeamName() }}</td>
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
+			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
@@ -38,10 +20,8 @@
 		</tr>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{selected:true, positionFullName: 'Defender'}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
-			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
-			<td class="col-md-2">{{ player.getTeamName() }}</td>
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
+			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
@@ -50,10 +30,8 @@
 		</tr>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{selected:true, positionFullName: 'Midfielder'}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
-			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
-			<td class="col-md-2">{{ player.getTeamName() }}</td>
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
+			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
@@ -62,10 +40,8 @@
 		</tr>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{selected:true, positionFullName: 'Forward'}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
-			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}">{{ player.getName() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>
-			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
-			<td class="col-md-2">{{ player.getTeamName() }}</td>
+			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
+			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
 								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
