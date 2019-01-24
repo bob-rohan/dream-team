@@ -11,7 +11,7 @@ fplApp
 							this.getPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://35.196.16.11:8088/dreamteam-restserver/getPlayers',
+										'http://35.231.18.244:8088/dreamteam-restserver/getPlayers',
 										{
 											get : {
 												method : "JSON",
@@ -31,7 +31,7 @@ fplApp
 							this.toggleSelected = function(player) {
 
 								var PostPlayersResource = $resource(
-										'http://35.196.16.11:8088/dreamteam-restserver/setSelected?fplId=' + player.getId() + '&selected=' + !player.getSelected(),
+										'http://35.231.18.244:8088/dreamteam-restserver/setSelected?fplId=' + player.getId() + '&selected=' + !player.getSelected(),
 										{
 											save : {
 												method : "POST",
@@ -47,7 +47,7 @@ fplApp
 							this.refreshPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://35.196.16.11:8088/dreamteam-restserver/refreshPlayers',
+										'http://35.231.18.244:8088/dreamteam-restserver/refreshPlayers',
 										{
 											get : {
 												method : "JSON",
