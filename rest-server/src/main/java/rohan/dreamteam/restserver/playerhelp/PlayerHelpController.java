@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rohan.dreamteam.domain.Player;
@@ -34,6 +35,15 @@ public class PlayerHelpController {
 		LOGGER.info("Received refreshPlayers request");
 
 		return dreamTeamService.refreshPlayers();
+	}
+	
+	@GetMapping(path = "setSelected")
+	public void setSelected(@RequestParam int fplId, @RequestParam boolean selected){
+		
+		LOGGER.info("Setting selected status {}, for player {}", selected, fplId);
+	
+		dreamTeamService.setSelected(fplId, selected);
+		
 	}
 
 }

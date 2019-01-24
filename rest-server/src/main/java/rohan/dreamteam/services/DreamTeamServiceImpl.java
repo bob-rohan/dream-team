@@ -45,6 +45,16 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	}
 	
 	@Override
+	public void setSelected(int fplId, boolean selected){
+		
+		Player player = playerRepository.findByFplId(fplId);
+		
+		player.setSelected(selected);
+		
+		playerRepository.save(player);
+	}
+	
+	@Override
 	public Iterable<Player> refreshPlayers() {
 
 		refreshPlayerData();

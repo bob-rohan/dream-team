@@ -39,6 +39,12 @@ public class DreamTeamServiceMock implements DreamTeamService {
 
 	private Collection<Player> players;
 
+	public void setSelected(int fplId, boolean selected){
+		
+		// TODO: implement for mock
+	}
+
+	
 	@Override
 	public Collection<Player> getPlayers() {
 

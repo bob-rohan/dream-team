@@ -7,5 +7,7 @@ public interface DreamTeamService {
 	Iterable<Player> getPlayers();
 	
 	Iterable<Player> refreshPlayers();
+	
+	void setSelected(int fplId, boolean selected);
 
 }
