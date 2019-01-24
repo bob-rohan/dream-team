@@ -11,7 +11,13 @@ fplApp.directive("tablePanel", function(){
            sortType: "=",
            players: "=",
            gameweeks: "="
-       }
+       },
+       controller: ["$scope", "$rootScope", function($scope, $rootScope) {
+	    	 
+    	   $scope.toggleSelected = function(player){
+    		   $rootScope.toggleSelected(player);
+    	   }
+       }]
    } 
     
 });
@@ -54,7 +60,13 @@ fplApp.directive("squadPanel", function(){
 	           sortType: "=",
 	           players: "=",
 	           gameweeks: "="
-	       }
+	       },
+	       controller: ["$scope", "$rootScope", function($scope, $rootScope) {
+	    	 
+	    	   $scope.toggleSelected = function(player){
+	    		   $rootScope.toggleSelected(player);
+	    	   }
+	       }]
 	   } 
 	    
 	});

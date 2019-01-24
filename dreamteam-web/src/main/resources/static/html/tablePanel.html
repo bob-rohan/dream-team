@@ -2,6 +2,7 @@
 
 	<thead>
 		<tr class="row">
+			<th class="col-md-2">Selected</th>
 			<th class="col-md-2">Player Name</th>
 			<th class="col-md-2"><a href="#/"
 				ng-click="$parent.setSortType('data.nowCost', $parent.sortDirectionIsAscending)">
@@ -34,6 +35,9 @@
 	<tbody>
 		<tr class="row"
 			ng-repeat="player in players | orderBy:sortType:$parent.sortDirectionIsAscending | filter:{positionFullName : typeName}" ng-class="player.getFitnessCommentary() != '' && player.getChanceOfPlaying() == 75 ? 'warning' : player.getFitnessCommentary() != '' && player.getChanceOfPlaying() < 75 ? 'danger' : ''">
+			<td class="col-md-2">
+				<button class="btn btn-default" ng-click="toggleSelected(player)">Toggle</button>
+			</td>
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
 			<td class="col-md-2">{{ player.getPointsPerGame() }}</td>

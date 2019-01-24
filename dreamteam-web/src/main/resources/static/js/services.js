@@ -27,6 +27,22 @@ fplApp
 								return players;
 
 							};
+							
+							this.toggleSelected = function(player) {
+
+								var PostPlayersResource = $resource(
+										'http://35.196.16.11:8088/dreamteam-restserver/setSelected?fplId=' + player.getId() + '&selected=' + !player.getSelected(),
+										{
+											save : {
+												method : "POST",
+												headers : {
+													'Access-Control-Allow-Origin' : '*'
+												}
+											}
+										});
+
+								PostPlayersResource.save();
+							};
 
 							this.refreshPlayers = function() {
 

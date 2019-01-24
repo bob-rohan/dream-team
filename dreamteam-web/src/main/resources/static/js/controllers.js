@@ -1,5 +1,5 @@
 // Controller
-fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplService', function($scope, $log, $routeParams, fplService){
+fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParams', 'fplService', function($rootScope, $scope, $log, $routeParams, fplService){
 
 	
 	$scope.sortType = 'getPointsPerGame()';
@@ -33,6 +33,12 @@ fplApp.controller('fplController', ['$scope', '$log', '$routeParams', 'fplServic
 			'minGameweek' : 0,
 			'maxGameweek' : 38
 			
+	};
+	
+	$rootScope.toggleSelected = function(player){
+		
+		fplService.toggleSelected(player);
+		
 	};
 	
 	$scope.refreshPlayers = function(){
