@@ -18,7 +18,7 @@ public class RefreshPlayersTask {
 	@Autowired
 	private DreamTeamService dreamTeamService;
 
-	@Scheduled(fixedRateString = "${refreshPlayers.fixedRate}")
+	// @Scheduled(fixedRateString = "${refreshPlayers.fixedRate}")
 	public void refreshPlayers() {
 		LOGGER.info("Starting refresh players task");
 
