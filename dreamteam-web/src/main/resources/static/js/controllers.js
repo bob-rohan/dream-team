@@ -85,6 +85,10 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 			return this.data.id;
 		}
 		
+		this.getFplId = function(){
+			return this.data.fplId
+		}
+		
 		this.getTeamName = function(){
 			return this.data.team.name;
 		}
