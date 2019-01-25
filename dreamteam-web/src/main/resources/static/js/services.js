@@ -29,9 +29,11 @@ fplApp
 							};
 							
 							this.toggleSelected = function(player) {
+								
+								player.setSelected(!player.getSelected());
 
 								var PostPlayersResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + !player.getSelected(),
+										'http://35.231.18.244:8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + player.getSelected(),
 										{
 											save : {
 												method : "POST",

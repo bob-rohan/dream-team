@@ -190,6 +190,10 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 			return this.data.selected;
 		}
 		
+		this.setSelected = function(selected){
+			this.data.selected = selected;
+		}
+		
 	}
 	
 	
