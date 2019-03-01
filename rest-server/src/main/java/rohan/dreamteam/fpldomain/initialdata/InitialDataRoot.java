@@ -2,6 +2,8 @@ package rohan.dreamteam.fpldomain.initialdata;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class InitialDataRoot {
 
 	private Collection<Element> elements;
@@ -9,6 +11,11 @@ public class InitialDataRoot {
 	private Collection<Team> teams;
 	
 	private Collection<ElementType> element_types;
+	
+	private Collection<Event> events;
+	
+	@JsonProperty("next-event")
+	private int nextEvent;
 
 	public Collection<Element> getElements() {
 		return elements;
@@ -32,6 +39,22 @@ public class InitialDataRoot {
 
 	public void setElement_types(Collection<ElementType> element_types) {
 		this.element_types = element_types;
+	}
+
+	public Collection<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Collection<Event> events) {
+		this.events = events;
+	}
+
+	public int getNextEvent() {
+		return nextEvent;
+	}
+
+	public void setNextEvent(int nextEvent) {
+		this.nextEvent = nextEvent;
 	}
 	
 }

@@ -5,7 +5,7 @@
 		    <th class="col-md-2">Selected</th>
 			<th class="col-md-2">Player Name</th>
 			<th class="col-md-2">Cost</th>
-			<th class="col-md-1" ng-repeat="gameweek in gameweeks">{{ gameweek.gameweek }} ({{ gameweek.difficulty }})</th>
+			<th class="col-md-1 text-center" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">{{ gameweek.getGameweek() }}</th>
 		</tr>
 	<thead>
 	<tbody>
@@ -16,10 +16,13 @@
 			</td>
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
-			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
-								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
-								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
-								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">
+				<table class="table" style="margin-bottom: 0px">
+					<th class="col-md-1 text-center" ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
+						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+					</th>
+				</table>
 			</td>
 		</tr>
 		<tr class="row"
@@ -29,10 +32,13 @@
 			</td>
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
-			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
-								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
-								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
-								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">
+				<table class="table" style="margin-bottom: 0px">
+					<th class="col-md-1 text-center" ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
+						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+					</th>
+				</table>
 			</td>
 		</tr>
 		<tr class="row"
@@ -42,10 +48,13 @@
 			</td>
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
-			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
-								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
-								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
-								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">
+				<table class="table" style="margin-bottom: 0px">
+					<th class="col-md-1 text-center" ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
+						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+					</th>
+				</table>
 			</td>
 		</tr>
 		<tr class="row"
@@ -55,10 +64,13 @@
 			</td>
 			<td class="col-md-2" ng-attr-id="{{ 'playerName' + player.getId() }}" ><abbr ng-attr-title="{{ player.getFitnessCommentary() != '' && player.getFitnessCommentary() || undefined }}">{{ player.getName() }}</abbr></td>
 			<td class="col-md-2" ng-class="player.getLikelihoodOfPriceChange() > 94 ? 'info' :  player.getLikelihoodOfPriceChange() < -94 ? 'danger' : ''"><abbr ng-attr-title="{{ player.getLikelihoodOfPriceChange() > 94 && player.getLikelihoodOfPriceChange() || player.getLikelihoodOfPriceChange() < -94 && player.getLikelihoodOfPriceChange() || undefined }}">{{ player.getNowCost() }}</abbr></td>
-			<td class="col-md-6" ng-repeat="fixture in player.getFixtures()"
-								ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
-								<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
-								<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">
+				<table class="table" style="margin-bottom: 0px">
+					<th class="col-md-1 text-center" ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
+						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+					</th>
+				</table>
 			</td>
 		</tr>
 	</tbody>

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rohan.dreamteam.domain.Configuration;
+import rohan.dreamteam.domain.Gameweek;
 import rohan.dreamteam.domain.Player;
 import rohan.dreamteam.services.DreamTeamService;
 
@@ -46,5 +48,19 @@ public class PlayerHelpController {
 		dreamTeamService.setSelected(fplId, selected);
 		
 	}
-
+	
+	@GetMapping(path = "getConfiguration", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Configuration getConfiguration() {
+		LOGGER.info("Getting configuration");
+		
+		return dreamTeamService.getConfiguration();
+	}
+	
+	@GetMapping(path = "getGameweeks", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Gameweek> getGameweeks() {
+		LOGGER.info("Getting gameweeks");
+		
+		return dreamTeamService.getGameweeks();
+	}
+	
 }

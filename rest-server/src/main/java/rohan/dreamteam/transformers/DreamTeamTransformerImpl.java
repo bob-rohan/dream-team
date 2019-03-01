@@ -15,14 +15,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rohan.dreamteam.domain.Configuration;
 import rohan.dreamteam.domain.Fitness;
 import rohan.dreamteam.domain.Fixture;
+import rohan.dreamteam.domain.Gameweek;
 import rohan.dreamteam.domain.GameweekStatistics;
 import rohan.dreamteam.domain.Player;
 import rohan.dreamteam.domain.PlayerFactory;
 import rohan.dreamteam.domain.Position;
 import rohan.dreamteam.fpldomain.initialdata.Element;
 import rohan.dreamteam.fpldomain.initialdata.ElementType;
+import rohan.dreamteam.fpldomain.initialdata.Event;
 import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
 import rohan.dreamteam.fpldomain.initialdata.Team;
 import rohan.dreamteam.fpldomain.playerdata.FplFixture;
@@ -39,11 +42,9 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 	DataConverter dataConverter;
 
 	@Override
-	public Collection<Player> transformStringToPlayers(final String playersData) {
+	public InitialDataRoot transformInitialData(final String initialData) {
 
-		InitialDataRoot initialDataRoot = dataConverter.convertJsonToInitialDataRoot(playersData);
-
-		return getPlayers(initialDataRoot);
+		return dataConverter.convertJsonToInitialDataRoot(initialData);
 
 	}
 
@@ -90,7 +91,7 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		return positions;
 	}
 
-	private Collection<Player> getPlayers(final InitialDataRoot initialDataRoot) {
+	public Collection<Player> getPlayers(final InitialDataRoot initialDataRoot) {
 
 		final Collection<Player> players = new ArrayList<>();
 
@@ -173,6 +174,34 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 		return fixtures;
 	}
+	
+	public Configuration getConfiguration(InitialDataRoot initialDataRoot) {
+		
+		Configuration configuration = new Configuration();
+		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
+		
+		return configuration;
+	}
+	
+    public Configuration getConfiguration(InitialDataRoot initialDataRoot, Configuration configuration) {
+		
+		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
+		
+		return configuration;
+	}
+    
+    public Collection<Gameweek> getGameweeks(InitialDataRoot initialDataRoot){
+    	
+    	Collection<Gameweek> gameweeks = new ArrayList<>();
+    	
+    	for(Event event : initialDataRoot.getEvents()) {
+    		Gameweek gameweek = new Gameweek();
+    		gameweek.setGameweek(event.getId());
+    		gameweeks.add(gameweek);
+    	}
+    	
+    	return gameweeks;
+    }
 
 	/**
 	 * This is a particularly fragile algorithm which involves parsing html. The

@@ -4,9 +4,7 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 	
 	$scope.sortType = 'getPointsPerGame()';
 	$scope.sortDirectionIsAscending = true;
-	
-	
-	
+
 	$scope.$watch('sortType', function(newValue, oldValue){
 		console.log('oldValue: ' + oldValue);
 		console.log('newValue: ' + newValue);
@@ -14,6 +12,9 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 	});
 	
 	$scope.players = {};
+	$scope.configuration = {};
+	$scope.gameweekss = {};
+	
 	$scope.slider = {
 		    minValue: 0,
 		    maxValue: 38,
@@ -29,6 +30,7 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 		        }
 		    }
 		};
+	
 	$scope.fplFilter = {
 			'minGameweek' : 0,
 			'maxGameweek' : 38
@@ -196,6 +198,26 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 		
 	}
 	
+	function Gameweek(data){
+		
+        this.data = data;
+		
+		this.getGameweek = function(){
+			return this.data.gameweek;
+		}
+		
+	}
+	
+    function Configuration(data){
+		
+        this.data = data;
+		
+		this.getNextGameweek = function(){
+			return this.data.nextGameweekId;
+		}
+		
+	}
+	
 	
 	$scope.getPlayers = function(){
 		$scope.players = fplService.getPlayers();
@@ -207,36 +229,75 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 						function(response){
 							
 							for(var playerId = 0; playerId < $scope.players.length; playerId++){
+
 								var player = new Player($scope.players[playerId]);
 								
 								// NB: set attributes for ng-filter
 								player.positionFullName = $scope.players[playerId].position.fullName;
 								player.selected = $scope.players[playerId].selected;
 								
-								if(playerId == 0){
-								  $scope.gameweeks = $scope.players[playerId].fixtures;
-								  
-								  for(var gameweekId = 0; gameweekId < $scope.gameweeks.length; gameweekId++){
-									  $scope.gameweeks[gameweekId].difficulty = 0;
-								  }
-								}
-								
-								if(player.selected == true){
-									for(var gameweekId = 0; gameweekId < $scope.gameweeks.length; gameweekId++){
-										
-										$scope.gameweeks[gameweekId].difficulty = ($scope.gameweeks[gameweekId].difficulty + $scope.players[playerId].fixtures[gameweekId].difficulty);
-										
-									}
-								}
-								
 								$scope.players[playerId] = player;
+							
 							}
+							
+							console.log('players');
+							console.log($scope.players);
 							
 							
 						}
 				);
 	}
 	
+	$scope.getConfiguration = function(){
+		
+		$scope.configuration = fplService.getConfiguration();
+		
+		$scope.configuration.$promise.then(
+				function(response){
+					$scope.configuration = new Configuration(response);
+					
+					$scope.gameweekss.tablePanelActive = [];
+					$scope.gameweekss.squadPanelActive = [];
+					
+					for(var gameweekId = 0; gameweekId < $scope.gameweekss.length; gameweekId++){
+						if($scope.gameweekss[gameweekId].getGameweek() > $scope.configuration.getNextGameweek()){
+							$scope.gameweekss.squadPanelActive.push($scope.gameweekss[gameweekId].getGameweek());
+							
+							if($scope.gameweekss.tablePanelActive.length < 3){
+								$scope.gameweekss.tablePanelActive.push($scope.gameweekss[gameweekId].getGameweek());
+							}
+						}
+					}
+					
+					console.log('configuration');
+					console.log($scope.configuration);
+					
+				}
+				);
+		
+	}
+	
+	$scope.getGameweeks = function(){
+		$scope.gameweekss = fplService.getGameweeks();
+		
+		$scope.gameweekss
+		    .$promise
+		        .then(
+		        		function(response){
+		        			
+		        			for(var gameweekId = 0; gameweekId < $scope.gameweekss.length; gameweekId++){
+		        				var gameweek = new Gameweek($scope.gameweekss[gameweekId]);
+		        				
+		        				$scope.gameweekss[gameweekId] = gameweek;
+		        			}
+		        		}
+				
+		        );
+	}
+	
+	$scope.getGameweeks();
 	$scope.getPlayers();
+	$scope.getConfiguration();
+	
 	
 }]);

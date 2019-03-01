@@ -10,10 +10,11 @@ fplApp.directive("tablePanel", function(){
            // = Object
            sortType: "=",
            players: "=",
-           gameweeks: "="
+           gameweekss: "=",
+           configuration: "="
        },
        controller: ["$scope", "$rootScope", function($scope, $rootScope) {
-	    	 
+	    
     	   $scope.toggleSelected = function(player){
     		   $rootScope.toggleSelected(player);
     	   }
@@ -59,10 +60,11 @@ fplApp.directive("squadPanel", function(){
 	           // = Object
 	           sortType: "=",
 	           players: "=",
-	           gameweeks: "="
+	           gameweekss: "=",
+	           configuration: "="
 	       },
 	       controller: ["$scope", "$rootScope", function($scope, $rootScope) {
-	    	 
+	    	   
 	    	   $scope.toggleSelected = function(player){
 	    		   $rootScope.toggleSelected(player);
 	    	   }
