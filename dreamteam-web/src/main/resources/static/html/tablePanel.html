@@ -44,8 +44,8 @@
 			<td class="col-md-2">{{ player.getPointsPerGamePerMillion() }}</td>
 			<td class="col-md-2">{{ player.getTeamName() }}</td>
 			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 3 : configuration.getNextGameweek() -1">
-				<table>
-					<th ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="text-center {success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+				<table class="table" style="margin-bottom: 0px">
+					<th ng-repeat="fixture in player.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" class="col-md-1 text-center" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
 						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
 						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
 					</th>
