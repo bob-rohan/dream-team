@@ -256,19 +256,6 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 				function(response){
 					$scope.configuration = new Configuration(response);
 					
-					$scope.gameweekss.tablePanelActive = [];
-					$scope.gameweekss.squadPanelActive = [];
-					
-					for(var gameweekId = 0; gameweekId < $scope.gameweekss.length; gameweekId++){
-						if($scope.gameweekss[gameweekId].getGameweek() > $scope.configuration.getNextGameweek()){
-							$scope.gameweekss.squadPanelActive.push($scope.gameweekss[gameweekId].getGameweek());
-							
-							if($scope.gameweekss.tablePanelActive.length < 3){
-								$scope.gameweekss.tablePanelActive.push($scope.gameweekss[gameweekId].getGameweek());
-							}
-						}
-					}
-					
 					console.log('configuration');
 					console.log($scope.configuration);
 					
