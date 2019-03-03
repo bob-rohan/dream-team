@@ -1,0 +1,23 @@
+<table class="table table-striped">
+
+	<thead>
+		<tr class="row">
+		    <th class="col-md-3">Team Name</th>
+			<th class="col-md-1 text-center" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">{{ gameweek.getGameweek() }}</th>
+		</tr>
+	<thead>
+	<tbody>
+		<tr class="row"
+			ng-repeat="team in teams">
+			<td class="col-md-2">{{ team.getName() }}</td>
+			<td class="col-md-1" ng-repeat="gameweek in gameweekss | limitTo: 40 : configuration.getNextGameweek() -1">
+				<table class="table" style="margin-bottom: 0px">
+					<th class="col-md-1 text-center" ng-repeat="fixture in team.getFixtures()" ng-if="gameweek.getGameweek() == fixture.gameweek" ng-class="{success: fixture.difficulty < 3, danger: fixture.difficulty > 3}">
+						<small ng-if="fixture.home"> <strong>{{fixture.oponentShortName}}</strong></small>
+						<small ng-if="!fixture.home">{{fixture.oponentShortName}}</small>
+					</th>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

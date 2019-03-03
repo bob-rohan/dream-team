@@ -1,26 +1,27 @@
 package rohan.dreamteam.services;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import rohan.dreamteam.domain.Configuration;
 import rohan.dreamteam.domain.Gameweek;
 import rohan.dreamteam.domain.Player;
+import rohan.dreamteam.domain.Team;
 import rohan.dreamteam.fpldomain.initialdata.InitialDataRoot;
 import rohan.dreamteam.services.dao.ConfigurationRepository;
 import rohan.dreamteam.services.dao.GameweekRepository;
 import rohan.dreamteam.services.dao.PlayerRepository;
+import rohan.dreamteam.services.dao.TeamRepository;
 import rohan.dreamteam.transformers.DreamTeamTransformer;
 
 @Service
-@Profile("!mock")
 public class DreamTeamServiceImpl implements DreamTeamService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceImpl.class);
@@ -47,6 +48,9 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	
 	@Autowired
 	private GameweekRepository gameweekRepository;
+	
+	@Autowired
+	private TeamRepository teamRepository;
 
 	@Override
 	public Iterable<Player> getPlayers() {
@@ -96,7 +100,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 		InitialDataRoot initialData = dreamTeamTransformer.transformInitialData(intialDataResponse);
 		
-		upsert(dreamTeamTransformer.getGameweeks(initialData));
+		upsertGameweek(dreamTeamTransformer.getGameweeks(initialData));
 		
 		Iterable<Configuration> configurations = configurationRepository.findAll();
 
@@ -120,12 +124,14 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 			LOGGER.trace("Player = {}", player);
 
-			upsert(player);
+			upsertPlayer(player);
 		}
+		
+		upsertTeam(initialData.getTeams(), players);
 	}
 
 	// TODO: refactor to DAO
-	private void upsert(final Player player) {
+	private void upsertPlayer(final Player player) {
 
 		Player persistedPlayer = playerRepository.findByFplId(player.getFplId());
 
@@ -139,7 +145,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 		playerRepository.save(player);
 	}
 	
-	private void upsert(final Collection<Gameweek> gameweeks) {
+	private void upsertGameweek(final Collection<Gameweek> gameweeks) {
 		gameweeks.forEach(gameweek -> {
 			
 			if(gameweekRepository.findByGameweek(gameweek.getGameweek()) == null) {
@@ -147,6 +153,26 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 			}
 			
 		});
+	}
+	
+	private void upsertTeam(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams, final Collection<Player> players){
+		
+		teams.forEach(team -> {
+	
+			Optional<Player> playerFromTeamOpt = players.stream().filter(player -> team.getName().equalsIgnoreCase(player.getTeam().getName())).findFirst();
+				
+			if (playerFromTeamOpt.isPresent()){
+				Team upsertTeam = (teamRepository.findByName(team.getName())) == null ? new Team() : teamRepository.findByName(team.getName());
+				
+				upsertTeam.setName(team.getName());
+				upsertTeam.setFixtures(playerFromTeamOpt.get().getFixtures());
+				
+				teamRepository.save(upsertTeam);
+					
+			}
+			
+		});
+		
 	}
 
 	private boolean containsMorePriceChangePages(String priceChangeHtml) {
@@ -194,5 +220,10 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 	@Override
 	public Iterable<Gameweek> getGameweeks() {
 		return gameweekRepository.findAll();
+	}
+
+	@Override
+	public Iterable<Team> getTeams() {
+		return teamRepository.findAll();
 	}
 }
