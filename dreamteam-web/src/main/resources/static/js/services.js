@@ -11,7 +11,7 @@ fplApp
 							this.getConfiguration = function(){
 								
 								var GetResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/getConfiguration',
+										'http://35.231.18.244:8088/dreamteam-restserver/getConfiguration',
 										{
 											get : {
 												method : "JSON",
@@ -28,7 +28,7 @@ fplApp
 							this.getGameweeks = function(){
 								
 								var GetResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/getGameweeks',
+										'http://35.231.18.244:8088/dreamteam-restserver/getGameweeks',
 										{
 											get : {
 												method : "JSON",
@@ -48,7 +48,7 @@ fplApp
 							this.getTeams = function(){
 								
 								var GetResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/getTeams',
+										'http://35.231.18.244:8088/dreamteam-restserver/getTeams',
 										{
 											get : {
 												method : "JSON",
@@ -68,7 +68,7 @@ fplApp
 							this.getPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/getPlayers',
+										'http://35.231.18.244:8088/dreamteam-restserver/getPlayers',
 										{
 											get : {
 												method : "JSON",
@@ -90,7 +90,7 @@ fplApp
 								player.setSelected(!player.getSelected());
 
 								var PostPlayersResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + player.getSelected(),
+										'http://35.231.18.244:8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + player.getSelected(),
 										{
 											save : {
 												method : "POST",
@@ -106,7 +106,7 @@ fplApp
 							this.refreshPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://localhost:8088/dreamteam-restserver/refreshPlayers',
+										'http://35.231.18.244:8088/dreamteam-restserver/refreshPlayers',
 										{
 											get : {
 												method : "JSON",
