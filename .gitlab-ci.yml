@@ -36,7 +36,7 @@ docker-build:
   stage: docker-build
   image: docker:stable
   script:
-    - cd rest-server
-    - docker build -t bobrohan/dreamteam-rest .
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push bobrohan/dreamteam-rest
+    - cd rest-server
+    - docker build -t $CI_REGISTRY_USER/dreamteam-rest .
+    - docker push $CI_REGISTRY_USER/dreamteam-rest
