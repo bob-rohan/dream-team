@@ -23,6 +23,8 @@ stages:
 maven-build:
   stage: maven-build
   image: maven:3.3.9-jdk-8
+  artifacts:
+   - target/
   script:
     - cd dreamteam-pom
     - mvn $MAVEN_CLI_OPTS clean install
@@ -32,8 +34,6 @@ maven-build:
 docker-build:
   stage: docker-build
   image: docker:stable
-  dependencies:
-    - maven-build
   script:
     - cd rest-server
     - docker build -t bobrohan/dreamteam-rest .
