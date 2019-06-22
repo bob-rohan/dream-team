@@ -13,6 +13,9 @@ cache:
   paths:
     - .m2/repository
 
+services: 
+  - docker:dind
+
 stages:
   - maven-build
   - docker-build
@@ -29,7 +32,6 @@ maven-build:
 docker-build:
   stage: docker-build
   image: docker:stable
-  service: docker:dind
   dependencies:
     - maven-build
   script:
