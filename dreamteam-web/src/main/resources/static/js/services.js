@@ -44,6 +44,26 @@ fplApp
 								return gameweeks;
 								
 							}
+							
+							this.getTeams = function(){
+								
+								var GetResource = $resource(
+										'http://35.231.18.244:8088/dreamteam-restserver/getTeams',
+										{
+											get : {
+												method : "JSON",
+												isArray : true,
+												headers : {
+													'Access-Control-Allow-Origin' : '*'
+												}
+											}
+										});
+
+								var teams = GetResource.query();
+								
+								return teams;
+								
+							}
 
 							this.getPlayers = function() {
 

@@ -30,6 +30,8 @@
 			data-toggle="tab">Fitness</a></li>
 	    <li id="Squad-tab"><a data-target="#squad"
 			data-toggle="tab">Squad</a></li>
+		<li id="Fixtures-tab"><a data-target="#fixtures"
+			data-toggle="tab">Fixtures</a></li>
 	</ul>
 
 	<div id="tabContent" class="tab-content">
@@ -71,6 +73,10 @@
 		<div id="squad" class="tab-pane">
 			<squad-panel sort-type="sortType"
 				gameweekss="gameweekss" players="players" configuration="configuration" fpl-filter="fplFilter"> </squad-panel>
+		</div>
+		
+		<div id="fixtures" class="tab-pane">
+			<teams-panel gameweekss="gameweekss" teams="teams" configuration="configuration"> </teams-panel>
 		</div>
 	</div>
 	

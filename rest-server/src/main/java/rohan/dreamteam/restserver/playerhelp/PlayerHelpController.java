@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rohan.dreamteam.domain.Configuration;
 import rohan.dreamteam.domain.Gameweek;
 import rohan.dreamteam.domain.Player;
+import rohan.dreamteam.domain.Team;
 import rohan.dreamteam.services.DreamTeamService;
 
 @RestController
@@ -61,6 +62,13 @@ public class PlayerHelpController {
 		LOGGER.info("Getting gameweeks");
 		
 		return dreamTeamService.getGameweeks();
+	}
+	
+	@GetMapping(path = "getTeams", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Team> getTeams() {
+		LOGGER.info("Getting teams");
+		
+		return dreamTeamService.getTeams();
 	}
 	
 }

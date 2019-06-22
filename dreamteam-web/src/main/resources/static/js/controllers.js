@@ -14,6 +14,7 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 	$scope.players = {};
 	$scope.configuration = {};
 	$scope.gameweekss = {};
+	$scope.teams = {};
 	
 	$scope.slider = {
 		    minValue: 0,
@@ -217,6 +218,20 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 		}
 		
 	}
+    
+    function Team(data){
+		
+        this.data = data;
+		
+        this.getFixtures = function(){
+			return this.data.fixtures;
+		}
+		
+        this.getName = function(){
+        	return this.data.name;
+        }
+        
+	}
 	
 	
 	$scope.getPlayers = function(){
@@ -256,24 +271,10 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 				function(response){
 					$scope.configuration = new Configuration(response);
 					
-					$scope.gameweekss.tablePanelActive = [];
-					$scope.gameweekss.squadPanelActive = [];
-					
-					for(var gameweekId = 0; gameweekId < $scope.gameweekss.length; gameweekId++){
-						if($scope.gameweekss[gameweekId].getGameweek() > $scope.configuration.getNextGameweek()){
-							$scope.gameweekss.squadPanelActive.push($scope.gameweekss[gameweekId].getGameweek());
-							
-							if($scope.gameweekss.tablePanelActive.length < 3){
-								$scope.gameweekss.tablePanelActive.push($scope.gameweekss[gameweekId].getGameweek());
-							}
-						}
-					}
-					
 					console.log('configuration');
 					console.log($scope.configuration);
 					
-				}
-				);
+				});
 		
 	}
 	
@@ -290,14 +291,32 @@ fplApp.controller('fplController', ['$rootScope', '$scope', '$log', '$routeParam
 		        				
 		        				$scope.gameweekss[gameweekId] = gameweek;
 		        			}
-		        		}
-				
-		        );
+		        		});
+	}
+	
+	$scope.getTeams = function(){
+		$scope.teams = fplService.getTeams();
+		
+		$scope.teams
+		    .$promise
+		        .then(
+		        		function(response){
+		        			
+		        			for(var teamId = 0; teamId < $scope.teams.length; teamId++){
+		        				var team = new Team($scope.teams[teamId]);
+		        				
+		        				$scope.teams[teamId] = team;
+		        			}
+		        			
+		        			console.log('teams');
+							console.log($scope.teams);
+		        			
+		        		});
 	}
 	
 	$scope.getGameweeks();
 	$scope.getPlayers();
 	$scope.getConfiguration();
-	
+	$scope.getTeams();
 	
 }]);

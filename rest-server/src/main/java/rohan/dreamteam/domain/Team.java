@@ -1,17 +1,25 @@
 package rohan.dreamteam.domain;
 
+import java.util.Collection;
+
+import org.springframework.data.annotation.Id;
+
 public class Team {
-	private int id;
+
+	@Id
+	private String id;
 
 	private int code;
 
 	private String name;
 
-	public int getId() {
+	private Collection<Fixture> fixtures;
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -29,5 +37,13 @@ public class Team {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Collection<Fixture> getFixtures() {
+		return fixtures;
+	}
+
+	public void setFixtures(Collection<Fixture> fixtures) {
+		this.fixtures = fixtures;
 	}
 }

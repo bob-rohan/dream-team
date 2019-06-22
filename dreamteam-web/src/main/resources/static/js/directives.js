@@ -72,3 +72,18 @@ fplApp.directive("squadPanel", function(){
 	   } 
 	    
 	});
+
+fplApp.directive("teamsPanel", function(){
+	   return {
+	       restrict: 'E',
+	       templateUrl: '../html/teamsPanel.html',
+	       replace: true,
+	       scope: {
+	           // = Object
+	    	   teams: "=",
+	           gameweekss: "=",
+	           configuration: "="
+	       }
+	   } 
+	    
+	});
