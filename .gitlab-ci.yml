@@ -38,3 +38,5 @@ docker-build:
   script:
     - cd rest-server
     - docker build -t bobrohan/dreamteam-rest .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push bobrohan/dreamteam-rest
