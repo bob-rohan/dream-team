@@ -24,7 +24,5 @@ build:
   script:
     - cd dreamteam-pom
     - mvn $MAVEN_CLI_OPTS clean install
-    - cd ../dreamteam-web
-    - mvn $MAVEN_CLI_OPTS clean package
     - cd ../rest-server
     - mvn $MAVEN_CLI_OPTS clean package
