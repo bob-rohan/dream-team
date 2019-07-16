@@ -1,6 +1,3 @@
-include:
-  template: Dependency-Scanning.gitlab-ci.yml
-  
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
@@ -20,8 +17,8 @@ services:
   - docker:dind
 
 stages:
-  - dependency_scanning
   - maven-build
+  - dependency_scanning
   - docker-build
   
 maven-build:
@@ -35,6 +32,9 @@ maven-build:
     - mvn $MAVEN_CLI_OPTS clean install
     - cd ../rest-server
     - mvn $MAVEN_CLI_OPTS clean package
+    
+include:
+  template: Dependency-Scanning.gitlab-ci.yml
     
 docker-build:
   stage: docker-build
