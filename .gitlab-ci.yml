@@ -20,6 +20,7 @@ services:
   - docker:dind
 
 stages:
+  - dependency_scanning
   - maven-build
   - docker-build
   
