@@ -31,6 +31,7 @@ import rohan.dreamteam.fpldomain.initialdata.Team;
 import rohan.dreamteam.fpldomain.playerdata.FplFixture;
 import rohan.dreamteam.fpldomain.playerdata.History;
 import rohan.dreamteam.fpldomain.playerdata.PlayerDataRoot;
+import rohan.dreamteam.services.dao.TeamRepository;
 import rohan.dreamteam.transformers.exceptions.DreamTeamTransformationException;
 
 @Service
@@ -40,6 +41,9 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 	@Autowired
 	DataConverter dataConverter;
+
+	@Autowired
+	TeamRepository teamRepository;
 
 	@Override
 	public InitialDataRoot transformInitialData(final String initialData) {
@@ -66,8 +70,10 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 			rohan.dreamteam.domain.Team dreamTeamTeam = new rohan.dreamteam.domain.Team();
 
+			dreamTeamTeam.setFplId(team.getId());
 			dreamTeamTeam.setCode(team.getCode());
 			dreamTeamTeam.setName(team.getName());
+			dreamTeamTeam.setShortName(team.getShort_name());
 
 			teams.put(dreamTeamTeam.getCode(), dreamTeamTeam);
 		}
@@ -118,12 +124,12 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 			rohan.dreamteam.domain.Team team = teams.get(element.getTeam_code());
 			player.setTeam(team);
 			player.setPosition(position);
-			
+
 			Fitness fitness = new Fitness();
 			fitness.setChanceOfPlaying(element.getChance_of_playing_next_round());
 			fitness.setCommentary(element.getNews());
 			player.setFitness(fitness);
-			
+
 			player.setSelected(false);
 
 			players.add(player);
@@ -166,42 +172,48 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 			fixture.setGameweek(fplFixture.getEvent_name());
 			fixture.setDifficulty(fplFixture.getDifficulty());
 			fixture.setHome(fplFixture.isIs_home());
-			fixture.setOponentName(fplFixture.getOpponent_name());
-			fixture.setOponentShortName(fplFixture.getOpponent_short_name());
 
+			int oponentTeamId = fplFixture.isIs_home() ? fplFixture.getTeam_a() : fplFixture.getTeam_h();
+
+			rohan.dreamteam.domain.Team oponentTeam = teamRepository.findByFplId(oponentTeamId);
+
+			if (oponentTeam != null) {
+				fixture.setOponentName(oponentTeam.getName());
+				fixture.setOponentShortName(oponentTeam.getShortName());
+			}
 			fixtures.add(fixture);
 		}
 
 		return fixtures;
 	}
-	
+
 	public Configuration getConfiguration(InitialDataRoot initialDataRoot) {
-		
+
 		Configuration configuration = new Configuration();
 		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
-		
+
 		return configuration;
 	}
-	
-    public Configuration getConfiguration(InitialDataRoot initialDataRoot, Configuration configuration) {
-		
+
+	public Configuration getConfiguration(InitialDataRoot initialDataRoot, Configuration configuration) {
+
 		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
-		
+
 		return configuration;
 	}
-    
-    public Collection<Gameweek> getGameweeks(InitialDataRoot initialDataRoot){
-    	
-    	Collection<Gameweek> gameweeks = new ArrayList<>();
-    	
-    	for(Event event : initialDataRoot.getEvents()) {
-    		Gameweek gameweek = new Gameweek();
-    		gameweek.setGameweek(event.getId());
-    		gameweeks.add(gameweek);
-    	}
-    	
-    	return gameweeks;
-    }
+
+	public Collection<Gameweek> getGameweeks(InitialDataRoot initialDataRoot) {
+
+		Collection<Gameweek> gameweeks = new ArrayList<>();
+
+		for (Event event : initialDataRoot.getEvents()) {
+			Gameweek gameweek = new Gameweek();
+			gameweek.setGameweek(event.getId());
+			gameweeks.add(gameweek);
+		}
+
+		return gameweeks;
+	}
 
 	/**
 	 * This is a particularly fragile algorithm which involves parsing html. The
@@ -214,15 +226,15 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 
 		try {
 			LOGGER.trace(priceChangeHtml);
-			
+
 			Document document = Jsoup.parse(priceChangeHtml);
-			
+
 			org.jsoup.select.Elements table = document.getElementsByClass("webgrid");
 
 			org.jsoup.nodes.Element tableBody = table.first().child(2);
 
 			for (org.jsoup.nodes.Element tableRow : tableBody.children()) {
-				
+
 				final String teamName = tableRow.child(1).text();
 
 				final String playerName = tableRow.child(0).text();

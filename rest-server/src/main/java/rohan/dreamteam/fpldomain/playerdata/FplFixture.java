@@ -1,10 +1,6 @@
 package rohan.dreamteam.fpldomain.playerdata;
 
-import java.util.Scanner;
-
 import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.core.sym.Name;
 
 public class FplFixture {
 
@@ -12,9 +8,9 @@ public class FplFixture {
 
 	private int difficulty;
 
-	private String opponent_short_name;
-
-	private String opponent_name;
+	private int team_h;
+	
+	private int team_a;
 
 	private boolean is_home;
 
@@ -48,13 +44,6 @@ public class FplFixture {
 		this.difficulty = difficulty;
 	}
 
-	public String getOpponent_name() {
-		return opponent_name;
-	}
-
-	public void setOpponent_name(String opponent_name) {
-		this.opponent_name = opponent_name;
-	}
 
 	public boolean isIs_home() {
 		return is_home;
@@ -64,12 +53,20 @@ public class FplFixture {
 		this.is_home = is_home;
 	}
 
-	public String getOpponent_short_name() {
-		return opponent_short_name;
+	public int getTeam_h() {
+		return team_h;
 	}
 
-	public void setOpponent_short_name(String opponent_short_name) {
-		this.opponent_short_name = opponent_short_name;
+	public void setTeam_h(int team_h) {
+		this.team_h = team_h;
+	}
+
+	public int getTeam_a() {
+		return team_a;
+	}
+
+	public void setTeam_a(int team_a) {
+		this.team_a = team_a;
 	}
 
 }

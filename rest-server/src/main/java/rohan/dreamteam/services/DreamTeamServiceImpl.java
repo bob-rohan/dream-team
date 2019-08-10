@@ -26,9 +26,9 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceImpl.class);
 
-	private static final String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/drf/bootstrap-static";
+	private static final String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/api/bootstrap-static";
 
-	private static final String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/drf/element-summary/";
+	private static final String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/api/element-summary/";
 
 	private static final String FPL_STATISTICS = "http://www.fplstatistics.co.uk/Home/IndexWG";
 
@@ -45,10 +45,10 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	@Autowired
 	private ConfigurationRepository configurationRepository;
-	
+
 	@Autowired
 	private GameweekRepository gameweekRepository;
-	
+
 	@Autowired
 	private TeamRepository teamRepository;
 
@@ -99,17 +99,19 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 		final String intialDataResponse = httpClientService.getDataString(DREAM_TEAM_URL_INITIAL_DATA);
 
 		InitialDataRoot initialData = dreamTeamTransformer.transformInitialData(intialDataResponse);
-		
+
 		upsertGameweek(dreamTeamTransformer.getGameweeks(initialData));
-		
+
 		Iterable<Configuration> configurations = configurationRepository.findAll();
 
 		Configuration configuration = (configurations.iterator().hasNext())
 				? dreamTeamTransformer.getConfiguration(initialData, configurations.iterator().next())
 				: dreamTeamTransformer.getConfiguration(initialData);
 
-		configurationRepository.save(configuration);
+		// configurationRepository.save(configuration);
 				
+		upsertTeam(initialData.getTeams());
+
 		Collection<Player> players = dreamTeamTransformer.getPlayers(initialData);
 
 		for (Player player : players) {
@@ -126,7 +128,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 			upsertPlayer(player);
 		}
-		
+
 		upsertTeam(initialData.getTeams(), players);
 	}
 
@@ -144,35 +146,54 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 		playerRepository.save(player);
 	}
-	
+
 	private void upsertGameweek(final Collection<Gameweek> gameweeks) {
 		gameweeks.forEach(gameweek -> {
-			
-			if(gameweekRepository.findByGameweek(gameweek.getGameweek()) == null) {
+
+			if (gameweekRepository.findByGameweek(gameweek.getGameweek()) == null) {
 				gameweekRepository.save(gameweek);
 			}
-			
+
 		});
 	}
-	
-	private void upsertTeam(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams, final Collection<Player> players){
-		
+
+	private void upsertTeam(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams,
+			final Collection<Player> players) {
+
 		teams.forEach(team -> {
-	
-			Optional<Player> playerFromTeamOpt = players.stream().filter(player -> team.getName().equalsIgnoreCase(player.getTeam().getName())).findFirst();
-				
-			if (playerFromTeamOpt.isPresent()){
-				Team upsertTeam = (teamRepository.findByName(team.getName())) == null ? new Team() : teamRepository.findByName(team.getName());
-				
+
+			Optional<Player> playerFromTeamOpt = players.stream()
+					.filter(player -> team.getName().equalsIgnoreCase(player.getTeam().getName())).findFirst();
+
+			if (playerFromTeamOpt.isPresent()) {
+				Team upsertTeam = (teamRepository.findByName(team.getName())) == null ? new Team()
+						: teamRepository.findByName(team.getName());
+
 				upsertTeam.setName(team.getName());
 				upsertTeam.setFixtures(playerFromTeamOpt.get().getFixtures());
-				
+
 				teamRepository.save(upsertTeam);
-					
+
 			}
-			
+
 		});
-		
+
+	}
+
+	private void upsertTeam(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams) {
+
+		teams.forEach(team -> {
+			Team upsertTeam = (teamRepository.findByName(team.getName())) == null ? new Team()
+					: teamRepository.findByName(team.getName());
+
+			upsertTeam.setName(team.getName());
+			upsertTeam.setShortName(team.getShort_name());
+		    upsertTeam.setFplId(team.getId());
+
+			teamRepository.save(upsertTeam);
+
+		});
+
 	}
 
 	private boolean containsMorePriceChangePages(String priceChangeHtml) {

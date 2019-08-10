@@ -7,6 +7,8 @@ public class Team {
 	private int code;
 	
 	private String name;
+	
+	private String short_name;
 
 	public int getId() {
 		return id;
@@ -30,6 +32,14 @@ public class Team {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getShort_name() {
+		return short_name;
+	}
+
+	public void setShort_name(String short_name) {
+		this.short_name = short_name;
 	}
 	
 }

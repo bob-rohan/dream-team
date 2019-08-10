@@ -9,9 +9,13 @@ public class Team {
 	@Id
 	private String id;
 
+	private int fplId;
+	
 	private int code;
 
 	private String name;
+	
+	private String shortName;
 
 	private Collection<Fixture> fixtures;
 	
@@ -46,4 +50,22 @@ public class Team {
 	public void setFixtures(Collection<Fixture> fixtures) {
 		this.fixtures = fixtures;
 	}
+
+	public int getFplId() {
+		return fplId;
+	}
+
+	public void setFplId(int fplId) {
+		this.fplId = fplId;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+
 }
