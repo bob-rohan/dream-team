@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rohan.dreamteam.domain.Configuration;
 import rohan.dreamteam.domain.Fitness;
 import rohan.dreamteam.domain.Fixture;
 import rohan.dreamteam.domain.Gameweek;
@@ -185,21 +184,6 @@ public class DreamTeamTransformerImpl implements DreamTeamTransformer {
 		}
 
 		return fixtures;
-	}
-
-	public Configuration getConfiguration(InitialDataRoot initialDataRoot) {
-
-		Configuration configuration = new Configuration();
-		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
-
-		return configuration;
-	}
-
-	public Configuration getConfiguration(InitialDataRoot initialDataRoot, Configuration configuration) {
-
-		configuration.setNextGameweekId(initialDataRoot.getNextEvent());
-
-		return configuration;
 	}
 
 	public Collection<Gameweek> getGameweeks(InitialDataRoot initialDataRoot) {

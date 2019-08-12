@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rohan.dreamteam.domain.Configuration;
+import rohan.dreamteam.domain.Fixture;
 import rohan.dreamteam.domain.Gameweek;
 import rohan.dreamteam.domain.Player;
 import rohan.dreamteam.domain.Team;
@@ -102,14 +103,6 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 		upsertGameweek(dreamTeamTransformer.getGameweeks(initialData));
 
-		Iterable<Configuration> configurations = configurationRepository.findAll();
-
-		Configuration configuration = (configurations.iterator().hasNext())
-				? dreamTeamTransformer.getConfiguration(initialData, configurations.iterator().next())
-				: dreamTeamTransformer.getConfiguration(initialData);
-
-		// configurationRepository.save(configuration);
-				
 		upsertTeam(initialData.getTeams());
 
 		Collection<Player> players = dreamTeamTransformer.getPlayers(initialData);
@@ -129,7 +122,37 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 			upsertPlayer(player);
 		}
 
-		upsertTeam(initialData.getTeams(), players);
+		upsertTeamFixtures(initialData.getTeams(), players);
+
+		upsertConfiguration(players);
+
+	}
+
+	private void upsertConfiguration(final Collection<Player> players) {
+
+		Optional<Player> playerFromTeamOpt = players.stream().findFirst();
+
+		if (playerFromTeamOpt.isPresent()) {
+
+			Player player = playerFromTeamOpt.get();
+			Collection<Fixture> fixtures = player.getFixtures();
+
+			Iterable<Configuration> configurations = configurationRepository.findAll();
+
+			Configuration configuration = (configurations.iterator().hasNext()) ? configurations.iterator().next() : new Configuration();
+
+			Optional<Fixture> fixtureOpt = fixtures.stream().findFirst();
+			if (fixtureOpt.isPresent()) {
+				Fixture fixture = fixtureOpt.get();
+				int gameweekId = fixture.getGameweek();
+
+				configuration.setNextGameweekId(gameweekId);
+
+			}
+
+			configurationRepository.save(configuration);
+
+		}
 	}
 
 	// TODO: refactor to DAO
@@ -157,7 +180,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 		});
 	}
 
-	private void upsertTeam(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams,
+	private void upsertTeamFixtures(final Collection<rohan.dreamteam.fpldomain.initialdata.Team> teams,
 			final Collection<Player> players) {
 
 		teams.forEach(team -> {
@@ -169,7 +192,6 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 				Team upsertTeam = (teamRepository.findByName(team.getName())) == null ? new Team()
 						: teamRepository.findByName(team.getName());
 
-				upsertTeam.setName(team.getName());
 				upsertTeam.setFixtures(playerFromTeamOpt.get().getFixtures());
 
 				teamRepository.save(upsertTeam);
@@ -188,7 +210,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 			upsertTeam.setName(team.getName());
 			upsertTeam.setShortName(team.getShort_name());
-		    upsertTeam.setFplId(team.getId());
+			upsertTeam.setFplId(team.getId());
 
 			teamRepository.save(upsertTeam);
 
