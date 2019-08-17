@@ -1,0 +1,34 @@
+version: "3.4"
+
+services:
+  backend:
+    image: bobrohan/dreamteam-rest:latest
+    ports: 
+      - "8088:8088"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '300m'
+      restart_policy:
+        max_attempts: 2
+    secrets:
+      - db_uri
+    
+  frontend:
+    image: bobrohan/dreamteam-web:latest
+    ports:
+      - "80:8089"
+    depends_on: 
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '200m'
+      restart_policy:
+        max_attempts: 2
+        
+secrets:
+  db_uri:
+    external: true
