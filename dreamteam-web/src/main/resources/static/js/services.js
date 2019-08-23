@@ -6,12 +6,13 @@ fplApp
 						'$resource',
 						'$http',
 						'$log',
-						function($resource, $http, $log) {
+						'$location',
+						function($resource, $http, $log, $location) {
 							
 							this.getConfiguration = function(){
 								
 								var GetResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/getConfiguration',
+										'http://' + $location.host() + ':8088/dreamteam-restserver/getConfiguration',
 										{
 											get : {
 												method : "JSON",
@@ -28,7 +29,7 @@ fplApp
 							this.getGameweeks = function(){
 								
 								var GetResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/getGameweeks',
+										'http://' + $location.host() + ':8088/dreamteam-restserver/getGameweeks',
 										{
 											get : {
 												method : "JSON",
@@ -48,7 +49,7 @@ fplApp
 							this.getTeams = function(){
 								
 								var GetResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/getTeams',
+										'http://' + $location.host() + ':8088/dreamteam-restserver/getTeams',
 										{
 											get : {
 												method : "JSON",
@@ -68,7 +69,7 @@ fplApp
 							this.getPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/getPlayers',
+										'http://' + $location.host() + ':8088/dreamteam-restserver/getPlayers',
 										{
 											get : {
 												method : "JSON",
@@ -90,7 +91,7 @@ fplApp
 								player.setSelected(!player.getSelected());
 
 								var PostPlayersResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + player.getSelected(),
+										'http://' + $location.host() + ':8088/dreamteam-restserver/setSelected?fplId=' + player.getFplId() + '&selected=' + player.getSelected(),
 										{
 											save : {
 												method : "POST",
@@ -106,7 +107,7 @@ fplApp
 							this.refreshPlayers = function() {
 
 								var GetPlayersResource = $resource(
-										'http://35.231.18.244:8088/dreamteam-restserver/refreshPlayers',
+										'http://' + $location.host() + ':8088/dreamteam-restserver/refreshPlayers',
 										{
 											get : {
 												method : "JSON",

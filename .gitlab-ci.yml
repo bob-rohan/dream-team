@@ -26,10 +26,13 @@ maven-build:
   artifacts:
    paths:
      - rest-server/target/
+     - dreamteam-web/target/
   script:
     - cd dreamteam-pom
     - mvn $MAVEN_CLI_OPTS clean install
     - cd ../rest-server
+    - mvn $MAVEN_CLI_OPTS clean package
+    - cd ../dreateam-web
     - mvn $MAVEN_CLI_OPTS clean package
     
 docker-build:
@@ -40,3 +43,6 @@ docker-build:
     - cd rest-server
     - docker build -t $CI_REGISTRY_USER/dreamteam-rest .
     - docker push $CI_REGISTRY_USER/dreamteam-rest
+    - cd dreamteam-web
+    - docker build -t $CI_REGISTRY_USER/dreamteam-web .
+    - docker push $CI_REGISTRY_USER/dreamteam-web
