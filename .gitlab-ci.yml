@@ -43,6 +43,6 @@ docker-build:
     - cd rest-server
     - docker build -t $CI_REGISTRY_USER/dreamteam-rest .
     - docker push $CI_REGISTRY_USER/dreamteam-rest
-    - cd dreamteam-web
+    - cd ../dreamteam-web
     - docker build -t $CI_REGISTRY_USER/dreamteam-web .
     - docker push $CI_REGISTRY_USER/dreamteam-web
