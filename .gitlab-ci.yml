@@ -32,7 +32,7 @@ maven-build:
     - mvn $MAVEN_CLI_OPTS clean install
     - cd ../rest-server
     - mvn $MAVEN_CLI_OPTS clean package
-    - cd ../dreateam-web
+    - cd ../dreamteam-web
     - mvn $MAVEN_CLI_OPTS clean package
     
 docker-build:
