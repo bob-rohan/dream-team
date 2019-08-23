@@ -27,7 +27,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DreamTeamServiceImpl.class);
 
-	private static final String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/api/bootstrap-static";
+	private static final String DREAM_TEAM_URL_INITIAL_DATA = "https://fantasy.premierleague.com/api/bootstrap-static/";
 
 	private static final String DREAM_TEAM_URL_PLAYER_DATA = "https://fantasy.premierleague.com/api/element-summary/";
 
@@ -111,7 +111,7 @@ public class DreamTeamServiceImpl implements DreamTeamService {
 			LOGGER.info("ID: {}, Name: {}", player.getFplId(), player.getName());
 
 			final String playerDataResponse = httpClientService
-					.getDataString(DREAM_TEAM_URL_PLAYER_DATA + player.getFplId());
+					.getDataString(DREAM_TEAM_URL_PLAYER_DATA + player.getFplId() + '/');
 
 			dreamTeamTransformer.transformStringToPlayer(playerDataResponse, player);
 
