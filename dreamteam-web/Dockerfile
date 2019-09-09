@@ -1,5 +1,8 @@
 FROM openjdk:8-jre
-MAINTAINER Bob Rohan <bobrohan87@gmail.com>
 ADD target/dreamteam-web-2.0.0-RELEASE.jar app.jar
+RUN useradd -d /home/appuser -m -s /bin/bash appuser
+USER appuser
 ENV JAVA_OPTS=""
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+CMD java -jar \
+  -Djava.security.egd=file:/dev/./urandom \
+  /app.jar
