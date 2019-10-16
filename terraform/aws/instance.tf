@@ -14,6 +14,7 @@ data "template_file" "dreamteam" {
 
   vars = {
     dburi = "${var.dreamteam-dburi}"
+    pubkey = "${var.dreamteam-pubkey}"
   }
 }
 
