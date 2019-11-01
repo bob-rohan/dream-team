@@ -26,6 +26,7 @@ resource "aws_route_table_association" "dreamteam" {
 }
 
 resource "aws_subnet" "dreamteam" {
+  availability_zone = "eu-west-2a"
   cidr_block = "10.0.0.0/28"
   vpc_id = "${aws_vpc.dreamteam.id}"
 }

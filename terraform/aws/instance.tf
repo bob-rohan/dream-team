@@ -1,4 +1,5 @@
 resource "aws_instance" "dreamteam" {
+  availability_zone = "eu-west-2a"
   # ubuntu-minimal/images-testing/hvm-ssd/ubuntu-bionic-daily-amd64-minimal-20190910
   ami           = "ami-00152f16fe6a671c9"
   instance_type = "t2.micro"
