@@ -10,6 +10,17 @@ resource "aws_instance" "dreamteam" {
   user_data = "${data.template_cloudinit_config.dreamteam-manager.rendered}"
 }
 
+resource "aws_volume_attachment" "dreamteam" {
+  device_name = "/dev/xvdf"
+  volume_id   = "${aws_ebs_volume.dreamteam.id}"
+  instance_id = "${aws_instance.dreamteam.id}"
+}
+
+resource "aws_ebs_volume" "dreamteam" {
+  availability_zone = "eu-west-2a"
+  size              = 4
+}
+
 data "template_file" "dreamteam" {
   template = "${file("${path.module}/init.cfg")}"
 
