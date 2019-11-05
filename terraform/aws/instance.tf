@@ -14,6 +14,7 @@ resource "aws_volume_attachment" "dreamteam" {
   device_name = "/dev/xvdf"
   volume_id   = "${aws_ebs_volume.dreamteam.id}"
   instance_id = "${aws_instance.dreamteam.id}"
+  force_detach = true
 }
 
 resource "aws_ebs_volume" "dreamteam" {
